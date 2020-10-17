@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import com.jfoenix.controls.JFXBadge?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXDialog?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import com.jfoenix.svg.SVGGlyph?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.phonebook.res.layout.Login">
+   <children>
+      <SVGGlyph layoutX="374.0" layoutY="91.0" />
+      <JFXCheckBox layoutX="423.0" layoutY="204.0" />
+      <CheckBox layoutX="416.0" layoutY="99.0" mnemonicParsing="false" text="CheckBox" />
+      <JFXBadge layoutX="462.0" layoutY="199.0" />
+      <JFXDialog layoutX="353.0" layoutY="264.0" prefHeight="26.0" prefWidth="74.0" />
+      <JFXBadge layoutX="382.0" layoutY="228.0" />
+
+
+      <Slider layoutX="414.0" layoutY="128.0" />
+      <JFXSlider layoutX="414.0" layoutY="241.0" prefHeight="26.0" prefWidth="143.0" />
+   </children>
+</AnchorPane>

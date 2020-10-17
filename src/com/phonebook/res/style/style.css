@@ -1,0 +1,26 @@
+
+
+.list-cell {
+-fx-background-color: #B9FFAB;
+-fx-text-fill: black;
+-fx-cell-size: 45;
+-fx-font-size: 18;
+-fx-font-weight: bold;
+
+}
+
+
+
+
+.list-cell:selected {
+-fx-background-color: #7F9DFF;
+
+-fx-cell-margin: 10.0;
+}
+
+.list-cell:hover{
+-fx-background-color: #FFC371;
+}
+@font-face{
+    src: url("RobotoMonoSemiBold.ttf"),
+}

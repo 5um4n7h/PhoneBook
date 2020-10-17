@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox fx:id="base" style="-fx-background-color: #0000;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.phonebook.HomeController">
+    <VBox alignment="CENTER" fillWidth="false" prefHeight="498.0" prefWidth="692.0" style="-fx-background-color: #0000;" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+        <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+        </padding>
+
+        <Label fx:id="HomeLabel" layoutX="223.0" layoutY="23.0" prefHeight="51.0" prefWidth="238.0" style="-fx-background-color: #0000;" text="Phonebook">
+            <font>
+                <Font name="System Bold" size="40.0" />
+            </font>
+         <cursor>
+            <Cursor fx:constant="CROSSHAIR" />
+         </cursor>
+        </Label>
+        <HBox alignment="CENTER">
+            <Label prefHeight="28.0" prefWidth="95.0" text="Location : ">
+                <font>
+                    <Font name="System Bold" size="18.0" />
+                </font>
+            </Label>
+            <Label prefHeight="28.0" prefWidth="195.0" text="Hootagalli, Mysuru">
+                <font>
+                    <Font name="System Bold" size="18.0" />
+                </font>
+            </Label>
+        </HBox>
+        <GridPane layoutY="148.0" prefHeight="282.0" prefWidth="645.0" HBox.hgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="114.2" minHeight="10.0" prefHeight="114.2" />
+                <RowConstraints maxHeight="51.999999999999986" minHeight="10.0" prefHeight="38.999999999999986" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="116.59999999999997" minHeight="10.0" prefHeight="97.80000000000001" vgrow="ALWAYS" />
+                <RowConstraints maxHeight="49.19999999999999" minHeight="0.0" prefHeight="32.19999999999999" vgrow="ALWAYS" />
+            </rowConstraints>
+            <Label fx:id="DoctorsLabel" alignment="CENTER" prefHeight="40.0" prefWidth="160.0" text="Doctors" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="1" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
+            </Label>
+            <Label fx:id="ElectriciansLabel" alignment="CENTER" prefHeight="40.0" prefWidth="148.0" text="Electricians" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="150.0" text="Plumbers" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="147.0" text="Carpentors" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="151.0" text="Lawyers" GridPane.rowIndex="3">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="151.0" text="Label" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="153.0" text="Label" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="151.0" text="Label" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                <font>
+                    <Font name="System Bold" size="28.0" />
+                </font>
+            </Label>
+        </GridPane>
+
+
+    </VBox>
+   <effect>
+      <GaussianBlur radius="0.0" />
+   </effect>
+</HBox>
