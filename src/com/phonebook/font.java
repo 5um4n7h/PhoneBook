@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 
 public class font {
 
+
+    //some text for test
+
     public static void main(String[] args) {
         System.out.println(javafx.scene.text.Font.getFamilies());
     }
