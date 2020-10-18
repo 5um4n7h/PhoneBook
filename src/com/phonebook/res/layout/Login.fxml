@@ -28,7 +28,7 @@
                               <Font name="Roboto Medium" size="14.0" />
                            </font>
                         </JFXTextField>
-                        <JFXPasswordField labelFloat="true" layoutX="75.0" layoutY="195.0" maxWidth="316.0" minWidth="235.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter password">
+                        <JFXPasswordField labelFloat="true" layoutX="75.0" layoutY="195.0" maxWidth="316.0" minWidth="235.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter Password">
                            <font>
                               <Font name="Roboto Medium" size="14.0" />
                            </font>
@@ -38,7 +38,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </JFXButton>
-            <Label fx:id="LoginType" alignment="CENTER" layoutX="12.0" layoutY="44.0" prefHeight="34.0" prefWidth="425.0" text=" User login" textAlignment="CENTER">
+            <Label fx:id="LoginType" alignment="CENTER" layoutX="12.0" layoutY="44.0" prefHeight="34.0" prefWidth="425.0" text=" User Login" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
