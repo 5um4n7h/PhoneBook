@@ -30,5 +30,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
 
+        //to get available font list in javafx
+        //System.out.println(javafx.scene.text.Font.getFamilies());
     }
 }
