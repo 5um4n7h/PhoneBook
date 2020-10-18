@@ -39,6 +39,9 @@
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
   </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$PROJECT_DIR$/src/Contacts_schema.sql" connection-id="da45e355-4393-426f-9f01-7851ee748b88" session-id="MAIN" current-schema="new_schema" />
+  </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
     <execution-history>
@@ -54,8 +57,10 @@
     <last-used-operator value="EQUAL" />
     <filters />
   </component>
-  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces />
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="false">
+    <recently-used-interfaces>
+      <mapping database-type="MYSQL" interface-id="DEFAULT" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
