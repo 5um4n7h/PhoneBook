@@ -1,27 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import com.jfoenix.controls.JFXBadge?>
-<?import com.jfoenix.controls.JFXCheckBox?>
-<?import com.jfoenix.controls.JFXDialog?>
-<?import com.jfoenix.controls.JFXSlider?>
-<?import com.jfoenix.svg.SVGGlyph?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.phonebook.LoginController">
 
+      <StackPane layoutX="184.0" layoutY="100.0" prefHeight="550.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.phonebook.res.layout.Login">
-   <children>
-      <SVGGlyph layoutX="374.0" layoutY="91.0" />
-      <JFXCheckBox layoutX="423.0" layoutY="204.0" />
-      <CheckBox layoutX="416.0" layoutY="99.0" mnemonicParsing="false" text="CheckBox" />
-      <JFXBadge layoutX="462.0" layoutY="199.0" />
-      <JFXDialog layoutX="353.0" layoutY="264.0" prefHeight="26.0" prefWidth="74.0" />
-      <JFXBadge layoutX="382.0" layoutY="228.0" />
+            <VBox prefHeight="200.0" prefWidth="100.0">
 
+                  <Pane prefHeight="386.0" prefWidth="800.0" style="-fx-background-color: #FFC800;" />
+                  <Pane prefHeight="351.0" prefWidth="800.0" style="-fx-background-color: #EDE7F6;" />
 
-      <Slider layoutX="414.0" layoutY="128.0" />
-      <JFXSlider layoutX="414.0" layoutY="241.0" prefHeight="26.0" prefWidth="143.0" />
-   </children>
+            </VBox>
+            <AnchorPane prefHeight="549.0" prefWidth="800.0" style="-fx-background-color: transparent;">
+
+                  <AnchorPane layoutX="166.0" layoutY="113.0" prefHeight="342.0" prefWidth="469.0" style="-fx-background-color: WHITE; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 4; -fx-border-radius: 4; -fx-padding: 8;">
+
+                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="185.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+
+                        </ImageView>
+                        <JFXTextField alignment="TOP_LEFT" labelFloat="true" layoutX="75.0" layoutY="147.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter Username">
+                           <font>
+                              <Font name="Roboto Medium" size="14.0" />
+                           </font>
+                        </JFXTextField>
+                        <JFXPasswordField labelFloat="true" layoutX="75.0" layoutY="195.0" maxWidth="316.0" minWidth="235.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter password">
+                           <font>
+                              <Font name="Roboto Medium" size="14.0" />
+                           </font>
+                        </JFXPasswordField>
+                        <JFXButton fx:id="LoginButton" layoutX="183.0" layoutY="270.0" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: FFC800;" text="Login">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </JFXButton>
+            <Label fx:id="LoginType" alignment="CENTER" layoutX="12.0" layoutY="44.0" prefHeight="34.0" prefWidth="425.0" text=" User login" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+
+                  </AnchorPane>
+                  <VBox layoutX="188.0" layoutY="24.0">
+
+                        <Label alignment="CENTER" prefHeight="34.0" prefWidth="425.0" text="Phonebook" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="40.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="32.0" prefWidth="425.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Roboto Bold" size="14.0" />
+                           </font>
+                        </Label>
+
+                  </VBox>
+         <JFXButton fx:id="ChangeLogin" layoutX="305.0" layoutY="474.0" prefHeight="38.0" prefWidth="191.0" style="-fx-background-color: FFC800;" text="Login as Admin">
+            <font>
+               <Font name="System Bold" size="16.0" />
+            </font>
+         </JFXButton>
+
+            </AnchorPane>
+
+      </StackPane>
+
 </AnchorPane>

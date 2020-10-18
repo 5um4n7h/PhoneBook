@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.*;
 
 
@@ -35,6 +36,8 @@ public class ContactsViewController {
     private Button ContactDeleteButton;
 
     private static boolean isUserContact;
+
+    private static boolean isCreate;
 
 
     //for jdbc connection
@@ -122,6 +125,26 @@ public class ContactsViewController {
 
         ContactEditButton.setOnMouseClicked(event -> {
             System.out.println("Edit Clicked");
+            isCreate = false;
+            // get a handle to the stage
+            Stage currentStage = (Stage) CreateContactButton.getScene().getWindow();
+            // do what you have to do
+
+            Stage newStage = new Stage();
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("res/layout/CreateContact.fxml"));
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            newStage.setTitle("Phonebook");
+            newStage.setScene(new Scene(root));
+            newStage.setWidth(currentStage.getWidth());
+            newStage.setHeight(currentStage.getHeight());
+            newStage.setResizable(false);
+            newStage.show();
+            currentStage.close();
+
         });
 
         ContactDeleteButton.setOnMouseClicked(event -> {
@@ -159,6 +182,7 @@ public class ContactsViewController {
 
 
         CreateContactButton.setOnMouseClicked(event -> {
+            isCreate = true;
             try {
 
                 // get a handle to the stage
