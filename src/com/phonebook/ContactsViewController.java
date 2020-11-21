@@ -37,8 +37,9 @@ public class ContactsViewController {
 
     private static boolean isUserContact;
 
-    private static boolean isCreate;
-
+    public static boolean isCreate;
+    public static int id;
+    public static int newid=0;
 
     //for jdbc connection
     private final String host = "jdbc:mysql://localhost:3306/contacts";
@@ -58,13 +59,14 @@ public class ContactsViewController {
 
     }
 
+
     public void initialize() {
 
         items = FXCollections.observableArrayList();
         switch (CategoryFlag) {
             case 0: {
                 CategoryLabel.setText("Doctors");
-                String sql = "SELECT * FROM doctors";
+                String sql = "SELECT * FROM defaultcontacts WHERE category=0";
                 DisplayContent(sql);
             }
             break;
@@ -82,9 +84,9 @@ public class ContactsViewController {
                 Statement Stat = con.createStatement();
                 String s = label.getText();
                 String sql = "SELECT * FROM " + GetCategoryName() + " WHERE name=\"" + s + "\"";
-                ResultSet rs = null;
-                rs = Stat.executeQuery(sql);
+                ResultSet rs = Stat.executeQuery(sql);
                 while (rs.next()) {
+                    id = rs.getInt("id");
                     String phn = rs.getString("phone");
                     String name = rs.getString("name");
                     String GroupFlag = rs.getString("GroupFlag");
@@ -115,6 +117,7 @@ public class ContactsViewController {
                     // ContactNameLabel.setFont(Font.font("Segoe UI Semibold", FontPosture.REGULAR, 20));
                     ContactNumberLabel.setText(phn);
                     Number = phn;
+
                 }
 
             } catch (Exception e) {
@@ -226,6 +229,7 @@ public class ContactsViewController {
                 // label.setFont(Font.font("Segoe UI Semibold",FontWeight.BOLD, 18));
                 items.add(label);
 
+                id = rs.getInt("id");
 
             }
 
@@ -245,6 +249,7 @@ public class ContactsViewController {
 
 
 
+
     public static String getData(String data){
         switch (data){
             case "name": return Name;
@@ -253,5 +258,8 @@ public class ContactsViewController {
         }
         return null;
     }
+
+
+
 
 }

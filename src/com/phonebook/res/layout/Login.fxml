@@ -8,11 +8,11 @@
 
 <AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.phonebook.LoginController">
 
-      <StackPane layoutX="184.0" layoutY="100.0" prefHeight="550.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <StackPane layoutX="184.0" layoutY="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
             <VBox prefHeight="200.0" prefWidth="100.0">
 
-                  <Pane prefHeight="386.0" prefWidth="800.0" style="-fx-background-color: #FFC800;" />
+                  <Pane prefHeight="386.0" prefWidth="800.0" style="-fx-background-color: #69FF81;" />
                   <Pane prefHeight="351.0" prefWidth="800.0" style="-fx-background-color: #EDE7F6;" />
 
             </VBox>
@@ -23,17 +23,17 @@
                         <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="185.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
 
                         </ImageView>
-                        <JFXTextField alignment="TOP_LEFT" labelFloat="true" layoutX="75.0" layoutY="147.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter Username">
+                        <JFXTextField fx:id="username" alignment="TOP_LEFT" labelFloat="true" layoutX="75.0" layoutY="147.0" maxWidth="316.0" minWidth="233.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter Username">
                            <font>
                               <Font name="Roboto Medium" size="14.0" />
                            </font>
                         </JFXTextField>
-                        <JFXPasswordField labelFloat="true" layoutX="75.0" layoutY="195.0" maxWidth="316.0" minWidth="235.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter Password">
+                        <JFXPasswordField fx:id="password" labelFloat="true" layoutX="75.0" layoutY="195.0" maxWidth="316.0" minWidth="235.0" prefHeight="31.0" prefWidth="316.0" promptText="Enter Password">
                            <font>
                               <Font name="Roboto Medium" size="14.0" />
                            </font>
                         </JFXPasswordField>
-                        <JFXButton fx:id="LoginButton" layoutX="183.0" layoutY="270.0" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: FFC800;" text="Login">
+                        <JFXButton fx:id="LoginButton" buttonType="RAISED" layoutX="183.0" layoutY="270.0" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #69FF81;" text="Login">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -59,7 +59,7 @@
                         </Label>
 
                   </VBox>
-         <JFXButton fx:id="ChangeLogin" layoutX="305.0" layoutY="474.0" prefHeight="38.0" prefWidth="191.0" style="-fx-background-color: FFC800;" text="Login as Admin">
+         <JFXButton fx:id="ChangeLogin" buttonType="RAISED" layoutX="305.0" layoutY="474.0" prefHeight="38.0" prefWidth="191.0" style="-fx-background-color: #69FF81;" text="Login as Admin">
             <font>
                <Font name="System Bold" size="16.0" />
             </font>

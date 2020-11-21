@@ -21,7 +21,7 @@
                </font>
             </Label>
             <TextField fx:id="PhoneNumberText" />
-            <Button fx:id="ContactCreateButton" mnemonicParsing="false" text="Create">
+            <Button fx:id="ContactSaveButton" mnemonicParsing="false" text="Create">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
