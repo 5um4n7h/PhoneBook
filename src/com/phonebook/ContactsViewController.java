@@ -34,6 +34,8 @@ public class ContactsViewController {
     private Button ContactEditButton;
     @FXML
     private Button ContactDeleteButton;
+    @FXML
+    private Button backtoHome;
 
     private static boolean isUserContact;
 
@@ -200,12 +202,35 @@ public class ContactsViewController {
                 newStage.setHeight(currentStage.getHeight());
                 newStage.setResizable(false);
                 newStage.show();
-                currentStage.close();
+               // currentStage.close();
 
             } catch (Exception exception) {
                 System.out.println(exception);
             }
 
+        });
+
+
+        backtoHome.setOnMouseClicked(mouseEvent -> {
+            try {
+                // get a handle to the stage
+                Stage currentStage = (Stage) backtoHome.getScene().getWindow();
+                // do what you have to do
+
+                Stage newStage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("res/layout/Home.fxml"));
+                newStage.setTitle("Phonebook");
+                newStage.setScene(new Scene(root));
+                newStage.setWidth(currentStage.getWidth());
+                newStage.setHeight(currentStage.getHeight());
+                newStage.setResizable(false);
+                newStage.show();
+                currentStage.close();
+            } catch (IOException ioException) {
+
+                ioException.printStackTrace();
+
+            }
         });
 
     }

@@ -2,14 +2,20 @@ package com.phonebook;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 
@@ -27,6 +33,8 @@ public class LoginController {
     private TextField username;
     @FXML
     private PasswordField password;
+    @FXML
+    private ImageView icon;
 
     private final String host = "jdbc:mysql://localhost:3306/contacts";
     private final String uName = "root";
@@ -46,12 +54,22 @@ public class LoginController {
             if(isUser){
                 LoginType.setText("Admin Login");
                 ChangeLogin.setText("Login as User");
+                try {
+                    icon.setImage(new Image(new FileInputStream("src\\com\\phonebook\\res\\imgaes\\admin.png")));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 isUser=false;
 
 
             }else {
                 LoginType.setText("User Login");
                 ChangeLogin.setText("Login as Admin");
+                try {
+                    icon.setImage(new Image(new FileInputStream("src\\com\\phonebook\\res\\imgaes\\user.png")));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 isUser=true;
             }
 
@@ -63,7 +81,7 @@ public class LoginController {
             if(isUser) {
                 try {
                     Statement Stat = con.createStatement();
-                    String sql ="SELECT password FROM authentication where username='"+username.getText()+"'";
+                    String sql ="SELECT password FROM authentication where username='"+username.getText()+"' AND type='user'";
                     ResultSet rs = Stat.executeQuery(sql);
                     while (rs.next()){
                         pass = rs.getString("password");
@@ -71,7 +89,7 @@ public class LoginController {
                         System.out.println("Entered password is: "+password.getText());
                     }
 
-                    if(pass!=password.getText()){
+                    if(pass.equals(password.getText())){
                         try {
                             // get a handle to the stage
                             Stage currentStage = (Stage) LoginType.getScene().getWindow();
@@ -87,7 +105,9 @@ public class LoginController {
                             newStage.show();
                             currentStage.close();
                         } catch (IOException ioException) {
+
                             ioException.printStackTrace();
+
                         }
                     }
                     else {
@@ -97,6 +117,22 @@ public class LoginController {
 
                     }
                 } catch (Exception e) {
+                    System.out.println("User not found");
+                  /*  String toastMsg = "User not found";
+                    int toastMsgTime = 3500; //3.5 seconds
+                    int fadeInTime = 500; //0.5 seconds
+                    int fadeOutTime= 500; //0.5 seconds
+                    Stage stage;
+                    stage=(Stage) LoginType.getScene().getWindow();
+                    Toast.makeText(stage, toastMsg, toastMsgTime, fadeInTime, fadeOutTime); */
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "User not found");
+                    alert.show();
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException interruptedException) {
+                        interruptedException.printStackTrace();
+                    }
+                    alert.hide();
                     System.out.println("Error: "+e);
                 }
             }
