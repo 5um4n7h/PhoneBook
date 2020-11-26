@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -25,6 +26,8 @@ public class HomeController implements Initializable {
     public Label DoctorsLabel;
     @FXML
     public HBox base;
+    @FXML
+    private ImageView doctorImage;
 
     public static int Cat;
 
@@ -36,8 +39,9 @@ public class HomeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        DoctorsLabel.setOnMouseClicked(event -> DoctorsClicked());
-        ElectriciansLabel.setOnMouseClicked(event -> ElectriciansClicked());
+        //DoctorsLabel.setOnMouseClicked(event -> DoctorsClicked());
+        //doctorImage.setOnMouseClicked(event -> DoctorsClicked());
+        //ElectriciansLabel.setOnMouseClicked(event -> ElectriciansClicked());
 
 
         // JFXRippler rippler = new JFXRippler(DoctorsLabel);

@@ -47,10 +47,10 @@
                   <Font name="System Bold" size="28.0" />
                </font>
             </Label>
-            <ImageView fx:id="icon" fitHeight="52.0" fitWidth="63.0" layoutX="207.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../imgaes/user.png" />
-               </image></ImageView>
+                      <ImageView fx:id="icon" fitHeight="52.0" fitWidth="63.0" layoutX="207.0" layoutY="72.0"
+                                 pickOnBounds="true" preserveRatio="true">
+                          <Image url="@../imgaes/user.png"/>
+                      </ImageView>
 
                   </AnchorPane>
                   <VBox layoutX="188.0" layoutY="24.0">
