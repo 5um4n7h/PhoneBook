@@ -10,7 +10,6 @@
     <orderEntry type="library" exported="" name="jfoenix-9.0.10" level="application" />
     <orderEntry type="library" exported="" name="lib1" level="application" />
     <orderEntry type="library" exported="" name="mysql-connector-java-8.0.21" level="application" />
-    <orderEntry type="library" exported="" name="openjfx-15_windows-x64_bin-sdk" level="application" />
     <orderEntry type="library" name="controlsfx-8.40.11" level="application" />
   </component>
 </module>
