@@ -36,7 +36,7 @@ External Libraries required :
   
   Essential setup to run the project
   
-  1.In intellij got to settings->plug-ins-> search of Databases Navigator and install it
+  1.In intellij got to settings->plug-ins-> search for Databases Navigator and install it
   
   2.Download jdk 11 ( [java 11.0.8](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html#license-lightbox) ) and install it,
   
