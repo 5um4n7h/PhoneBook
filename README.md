@@ -6,9 +6,8 @@ Intellij IDEA
 
 MySQL server 8.0
 
-project SDK 11 ( [java 11.0.8](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html#license-lightbox) )
 
-DB Navigator plug-in
+
 
 Scenebuilder ( to create FXML UI )
 
@@ -37,14 +36,18 @@ External Libraries required :
   
   Essential setup to run the project
   
-  1.Project SDK level and Module SDK is 11 and project language level is default
+  1.In intellij got to settings->plug-ins-> search of Databases Navigator and install it
   
-  2.Download this [openjfx library](https://gluonhq.com/download/javafx-11-0-2-sdk-windows/) jar and extract in "C:\Program Files\Java\"
+  2.Download jdk 11 ( [java 11.0.8](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html#license-lightbox) ) and install it,
   
-  3.On Intellij go to Run->configurations-> and add VM options as --module-path "C:\Program Files\Java\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml
+  3.Project SDK level and Module SDK is 11 and project language level is default
+  
+  4.Download this [openjfx library](https://gluonhq.com/download/javafx-11-0-2-sdk-windows/) jar and extract in "C:\Program Files\Java\"
+  
+  5.On Intellij go to Run->configurations-> and add VM options as --module-path "C:\Program Files\Java\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml
    (we have to manually specify the javafx library path to jvm because javfx is not part of JDK in JDK 11 or above)
    
-  4.Click on DB browser and create a MySQL connection,  give the same username and password as in MySQL server and download this [mysql-connector-java-8.0.21](https://dev.mysql.com/downloads/file/?id=498587) jar. set driver source as external library and add driver library path to downloaded jar
+  6.Click on DB browser and create a MySQL connection,  give the same username and password as in MySQL server and download this [mysql-connector-java-8.0.21]   (https://dev.mysql.com/downloads/file/?id=498587) jar. set driver source as external library and add driver library path to downloaded jar
   
 
   
