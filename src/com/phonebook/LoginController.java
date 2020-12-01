@@ -40,6 +40,7 @@ public class LoginController {
     private final String uName = "root";
     private final String uPass = "1234";
     public String pass;
+    public  String UserType;
 
     private Connection con = DriverManager.getConnection(host, uName, uPass);
 
@@ -78,10 +79,15 @@ public class LoginController {
 
         LoginButton.setOnAction(actionEvent -> {
             System.out.println("Clicked");
-            if(isUser) {
+            if(isUser==true){
+                UserType = "user";
+
+            }else{
+                UserType = "admin";
+            }
                 try {
                     Statement Stat = con.createStatement();
-                    String sql ="SELECT password FROM authentication where username='"+username.getText()+"' AND type='user'";
+                    String sql ="SELECT password FROM authentication where username='"+username.getText()+"' AND type='"+UserType+"'";
                     ResultSet rs = Stat.executeQuery(sql);
                     while (rs.next()){
                         pass = rs.getString("password");
@@ -111,8 +117,14 @@ public class LoginController {
                         }
                     }
                     else {
-
-                        System.out.println("error in password");
+                        Alert alert = new Alert(Alert.AlertType.WARNING, "Wrong password!");
+                        alert.show();
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException interruptedException) {
+                            interruptedException.printStackTrace();
+                        }
+                        alert.hide();
 
 
                     }
@@ -135,7 +147,8 @@ public class LoginController {
                     alert.hide();
                     System.out.println("Error: "+e);
                 }
-            }
+
+
 
         });
 
