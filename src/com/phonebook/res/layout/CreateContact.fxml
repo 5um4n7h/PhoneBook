@@ -1,26 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.phonebook.CreateContactController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.phonebook.CreateContactController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="608.0">
+      <VBox prefHeight="622.0" prefWidth="1039.0">
          <children>
             <Label prefHeight="18.0" prefWidth="128.0" text="Name">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="ContactNameText" />
-            <Label text="Phone no">
+            <TextField fx:id="NameText" maxWidth="200.0" prefHeight="26.0" prefWidth="200.0" />
+            <Label text="description">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="DesriptionText" maxWidth="200.0" />
+            <Label text="Address">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="AddressText" maxWidth="200.0" />
+            <Label text="Phone Numbers">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="PhoneNumberText" />
+            <TextField fx:id="Phn1Text" maxWidth="200.0" />
+            <JFXTextField fx:id="Phn2Text" maxWidth="200.0" />
+            <Label text="Email">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="EmailText" maxWidth="200.0" />
+            <Label text="Website">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="WebsiteText" maxWidth="200.0" />
             <Button fx:id="ContactSaveButton" mnemonicParsing="false" text="Create">
                <font>
                   <Font name="System Bold" size="16.0" />

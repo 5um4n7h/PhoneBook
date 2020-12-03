@@ -17,18 +17,35 @@ public class CreateContactController {
     @FXML
     private Button ContactSaveButton;
     @FXML
-    private TextField ContactNameText;
+    private TextField NameText;
     @FXML
-    private TextField PhoneNumberText;
+    private TextField DesriptionText;
+    @FXML
+    private TextField AddressText;
+    @FXML
+    private TextField Phn1Text;
+    @FXML
+    private TextField Phn2Text;
+    @FXML
+    private TextField EmailText;
+    @FXML
+    private TextField WebsiteText;
 
     private final String host = "jdbc:mysql://localhost:3306/contacts";
     private final String uName = "root";
     private final String uPass = "1234";
 
+    public int newId;
+    public int oldId;
+    public String ContactID;
+    public String Sql1;
+    public String Sql2;
+    public String Sql3;
+
     private Connection con = DriverManager.getConnection(host, uName, uPass);
 
     public int CategoryFlag = HomeController.getCategory();
-    private int newid = ContactsViewController.newid;
+   // private int newid = ContactsViewController.newid;
     public CreateContactController() throws SQLException {
     }
 
@@ -45,20 +62,67 @@ public class CreateContactController {
 
             ContactSaveButton.setOnMouseClicked(event -> {
 
-
-                String Name = ContactNameText.getText();
-                String Phone = PhoneNumberText.getText();
-                try {
+                try{
                     Statement Stat = con.createStatement();
-                    String sql = "INSERT INTO " + ContactsViewController.GetCategoryName() + " VALUES("+(newid+1)+",\"" + Name + "\"," + Phone + ",\"true\")";
-                    ContactsViewController.newid = ContactsViewController.newid+1;
-                    Stat.executeUpdate(sql);
-                } catch (Exception e) {
-                    System.out.println(e);
+                    String Sql = "select * from id";
+                    ResultSet rs = Stat.executeQuery(Sql);
+                    while (rs.next()){
+                        oldId = (rs.getInt("id"));
+                        newId = oldId+1;
+                        System.out.println(newId);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
 
-                Stage currentStage = (Stage) ContactNameText.getScene().getWindow();
-                // do what you have to do
+                try {
+                    Statement Stat = con.createStatement();
+                    String Sql = "UPDATE id SET id ="+newId+" where id ="+oldId;
+                    Stat.executeUpdate(Sql);
+
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                if(LoginController.isUser) {
+                    ContactID = "u" + newId;
+                }
+                else{
+                    ContactID = "d" + newId;
+                }
+
+                String Name = "\""+NameText.getText()+"\"";
+                String Desc = "\""+DesriptionText.getText()+"\"";
+                String Address = "\""+AddressText.getText()+"\"";
+                String AddressLink = "\"\"";
+                String Phn1 = "\""+Phn1Text.getText()+"\"";
+                String Phn2 = "\""+Phn2Text.getText()+"\"";
+                String Email = "\""+EmailText.getText()+"\"";
+                String Website = "\""+WebsiteText.getText()+"\"";
+                String Facebook = "\"\"";
+                String Instagram = "\"\"";
+
+                try {
+                    Statement Stat = con.createStatement();
+                    if(LoginController.isUser) {
+                        Sql1 = "INSERT INTO usercontacts  VALUES(\"" + ContactID + "\"," + HomeController.getCategory() + "," + Name + "," + Desc + "," + Address + "," + AddressLink + ")" ;
+                        Sql2 = "INSERT INTO usercontactdetails VALUES(\"" + ContactID+ "\"," +Phn1+","+Phn2+","+Email+ ")";
+                        Sql3 = "INSERT INTO usercontactsocial VALUES(\"" + ContactID + "\","+ Website + "," + Facebook +","+ Instagram+ ")";
+                    }
+                    else {
+                        Sql1 = "INSERT INTO defaultcontacts  VALUES(\"" + ContactID + "\"," + HomeController.getCategory() + "," + Name + "," + Desc + "," + Address + "," + AddressLink + ")" ;
+                        Sql2 = "INSERT INTO defaultcontactdetails VALUES(\"" + ContactID + "\"," +Phn1+","+Phn2+","+Email+ ")";
+                        Sql3 = "INSERT INTO defaultcontactsocial VALUES(\"" + ContactID + "\","+ Website +","+ Facebook +","+ Instagram+ ")";
+                    }
+                    Stat.executeUpdate(Sql1);
+                    Stat.executeUpdate(Sql2);
+                    Stat.executeUpdate(Sql3);
+                    //useruStat.executeUpdate(Sql3);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Stage currentStage = (Stage) NameText.getScene().getWindow();
 
                 try {
                     Stage newStage = new Stage();
@@ -77,8 +141,9 @@ public class CreateContactController {
         }
             else {
 
-                ContactNameText.setText(ContactsViewController.getData("name"));
-                PhoneNumberText.setText(ContactsViewController.getData("number"));
+               // NameText.setText(ContactsViewController.getData("name"));
+                //DesriptionText.setText(ContactsViewController.getData("desc"));
+                //Phn1Text.setText(ContactsViewController.getData("number"));
 
 
 

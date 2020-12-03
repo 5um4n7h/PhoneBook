@@ -1,22 +1,21 @@
 package com.phonebook;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.*;
+import java.util.ResourceBundle;
 
 
-
-public class ContactsViewController {
+public class ContactsViewController extends Application {
 
     @FXML
     private ListView itemListView;
@@ -25,7 +24,7 @@ public class ContactsViewController {
     @FXML
     private Label ContactNameLabel;
     @FXML
-    private Label ContactNumberLabel;
+    private Label DescriptionLabel;
     @FXML
     private TextField SearchText;
     @FXML
@@ -36,12 +35,24 @@ public class ContactsViewController {
     private Button ContactDeleteButton;
     @FXML
     private Button backtoHome;
+    @FXML
+    private Label AddressLabel;
+    @FXML
+    private Label Ph1Label;
+    @FXML
+    private Label Ph2Label;
+    @FXML
+    private Label EmailLabel;
+    @FXML
+    private Hyperlink WebsiteHyperLink;
 
-    private static boolean isUserContact;
+    private static boolean isUserContact = LoginController.getUserType();
 
     public static boolean isCreate;
-    public static int id;
+    public String id;
     public static int newid=0;
+    public static String sql;
+    public static String Sql;
 
     //for jdbc connection
     private final String host = "jdbc:mysql://localhost:3306/contacts";
@@ -50,33 +61,85 @@ public class ContactsViewController {
     public static String Name;
     public static String Number;
     private final Connection con = DriverManager.getConnection(host, uName, uPass);
+    public String website;
 
+    public static String name;
 
     //for listview
     private ObservableList<Object> items;
-
-    public static int CategoryFlag = HomeController.getCategory();
 
     public ContactsViewController() throws SQLException {
 
     }
 
+    @Override
+    public void start(Stage stage) throws Exception {
+
+    }
+
 
     public void initialize() {
-
+        System.out.println("Init called");
         items = FXCollections.observableArrayList();
-        switch (CategoryFlag) {
+        switch (HomeController.getCategory()) {
             case 0: {
+                System.out.println("Case 0");
                 CategoryLabel.setText("Doctors");
-                String sql = "SELECT * FROM defaultcontacts WHERE category=0";
-                DisplayContent(sql);
+                //sql = "SELECT * FROM defaultcontacts,defaultcontactdetails,defaultcontactsocial WHERE category = 0";
+                Sql = "select * from allcontacts where category=0";
+                DisplayContent(Sql);
+                //sql = "SELECT * FROM usercontacts WHERE usercontacts.category=0";
+               // DisplayContent(sql);
             }
             break;
 
             case 1: {
+                System.out.println("Case 1");
                 CategoryLabel.setText("Electricians");
-                String sql = "SELECT * FROM electricians";
-                DisplayContent(sql);
+                Sql = "SELECT * FROM defaultcontacts,usercontacts WHERE category=1";
+                DisplayContent(Sql);
+            }
+            break;
+
+            case 2:{
+                CategoryLabel.setText("Plumbers");
+                Sql = "SELECT * FROM defaultcontacts WHERE category=2";
+                DisplayContent(Sql);
+            }
+            break;
+
+            case 3:{
+                CategoryLabel.setText("Carpentors");
+                Sql = "SELECT * FROM defaultcontacts WHERE category=3";
+                DisplayContent(Sql);
+            }
+            break;
+
+            case 4:{
+                CategoryLabel.setText("Lawyers");
+                Sql = "SELECT * FROM defaultcontacts WHERE category=4";
+                DisplayContent(Sql);
+            }
+            break;
+
+            case 5:{
+                CategoryLabel.setText("Shops");
+                Sql = "SELECT * FROM defaultcontacts WHERE category=5";
+                DisplayContent(Sql);
+            }
+            break;
+
+            case 6:{
+                CategoryLabel.setText("Educational Institutions");
+                Sql = "SELECT * FROM defaultcontacts WHERE category=6";
+                DisplayContent(Sql);
+            }
+            break;
+
+            case 7:{
+                CategoryLabel.setText("Banks");
+                Sql = "SELECT * FROM defaultcontacts WHERE category=7";
+                DisplayContent(Sql);
             }
             break;
         }
@@ -85,31 +148,35 @@ public class ContactsViewController {
             try {
                 Statement Stat = con.createStatement();
                 String s = label.getText();
-                String sql = "SELECT * FROM " + GetCategoryName() + " WHERE name=\"" + s + "\"";
+                String sql = "SELECT * FROM allcontacts WHERE name=\'" + s + "\'";
                 ResultSet rs = Stat.executeQuery(sql);
                 while (rs.next()) {
-                    id = rs.getInt("id");
-                    String phn = rs.getString("phone");
-                    String name = rs.getString("name");
-                    String GroupFlag = rs.getString("GroupFlag");
-                    Boolean flag = Boolean.valueOf(GroupFlag);
-                    //System.out.println("boolean value is"+flag);
-                    if(!flag){
+                    id = rs.getString("id");
+                    name = rs.getString("name");
+                    String desc = rs.getString("description");
+                    String address = rs.getString("address");
+                    String Phn1 = rs.getString("no1");
+                    String Phn2 = rs.getString("no2");
+                    String email = rs.getString("email");
+                    website = rs.getString("website");
+
+
+                    if(LoginController.isUser && id.contains("d")){
+                        isUserContact = true;
+                        // System.out.println("If is true");
+                        ContactDeleteButton.setVisible(false);
+                        ContactEditButton.setVisible(false);
+                    }
+                    else {
 
                         //System.out.println("If is false");
                         isUserContact = false;
 
-                        ContactDeleteButton.setVisible(false);
-                        ContactEditButton.setVisible(false);
-
-
-                    }
-                    else {
-                        isUserContact = true;
-                       // System.out.println("If is true");
                         ContactDeleteButton.setVisible(true);
                         ContactEditButton.setVisible(true);
+
                     }
+
                    // System.out.println(phn);
                     //System.out.println(name);
                    // System.out.println(GroupFlag);
@@ -117,8 +184,12 @@ public class ContactsViewController {
                     ContactNameLabel.setText(name);
                     Name = name;
                     // ContactNameLabel.setFont(Font.font("Segoe UI Semibold", FontPosture.REGULAR, 20));
-                    ContactNumberLabel.setText(phn);
-                    Number = phn;
+                    DescriptionLabel.setText(desc);
+                    AddressLabel.setText(address);
+                    Ph1Label.setText(Phn1);
+                    Ph2Label.setText(Phn2);
+                    EmailLabel.setText(email);
+                    WebsiteHyperLink.setText(website);
 
                 }
 
@@ -154,6 +225,21 @@ public class ContactsViewController {
 
         ContactDeleteButton.setOnMouseClicked(event -> {
             System.out.println("Delete Clicked");
+            try{
+                Statement Stat = con.createStatement();
+                if(id.contains("u")){
+                    sql = "DELETE FROM usercontacts WHERE id3='"+id+"'";
+                }else
+                {
+                    sql = "DELETE FROM defaultcontacts WHERE id0='"+id+"'";
+                }
+                Stat.executeUpdate(sql);
+                itemListView.refresh();
+                DisplayContent(Sql);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         });
 
         SearchText.textProperty().addListener((observable, oldValue, newValue) ->
@@ -202,7 +288,7 @@ public class ContactsViewController {
                 newStage.setHeight(currentStage.getHeight());
                 newStage.setResizable(false);
                 newStage.show();
-               // currentStage.close();
+                currentStage.close();
 
             } catch (Exception exception) {
                 System.out.println(exception);
@@ -212,6 +298,7 @@ public class ContactsViewController {
 
 
         backtoHome.setOnMouseClicked(mouseEvent -> {
+            sql = null;
             try {
                 // get a handle to the stage
                 Stage currentStage = (Stage) backtoHome.getScene().getWindow();
@@ -230,7 +317,15 @@ public class ContactsViewController {
 
                 ioException.printStackTrace();
 
+
             }
+        });
+
+
+
+        WebsiteHyperLink.setOnAction(actionEvent -> {
+            getHostServices().showDocument(website);
+
         });
 
     }
@@ -240,21 +335,25 @@ public class ContactsViewController {
 
     private void DisplayContent(String sql) {
         try {
+            items.clear();
             Statement Stat = con.createStatement();
-
+            System.out.println(sql);
             ResultSet rs = Stat.executeQuery(sql);
 
 
             while (rs.next()) {
 
                 String name = rs.getString("name");
-                itemListView.setItems(items);
+                //id = rs.getInt("id");
+
                // Object object = new Object();
                 Label label = new Label(name);
                 // label.setFont(Font.font("Segoe UI Semibold",FontWeight.BOLD, 18));
                 items.add(label);
 
-                id = rs.getInt("id");
+
+                itemListView.setItems(items);
+               // itemListView.refresh();
 
             }
 
@@ -264,9 +363,9 @@ public class ContactsViewController {
     }
 
     public static String GetCategoryName() {
-        switch (CategoryFlag) {
+        switch (HomeController.getCategory()) {
             case 0: return "doctors";
-            case  1:return "electricians";
+            case 1:return "electricians";
         }
     return null;
     }

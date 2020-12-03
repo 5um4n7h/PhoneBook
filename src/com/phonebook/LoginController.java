@@ -22,7 +22,7 @@ import java.sql.*;
 
 public class LoginController {
 
-    private boolean isUser=true;
+    public static boolean isUser=true;
     @FXML
     private Button ChangeLogin;
     @FXML
@@ -152,5 +152,15 @@ public class LoginController {
 
         });
 
+
 }
+
+   public static Boolean getUserType(){
+
+        if(isUser)
+            return false;
+        else
+            return true;
+
+   }
 }
