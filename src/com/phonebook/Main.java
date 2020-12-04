@@ -7,17 +7,41 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Main extends Application {
-    @FXML
+
+
+
+        public static final String host = "jdbc:mysql://localhost:3306/contacts";
+        public static final String uName = "root";
+        public static final String uPass = "1234";
+        public static Connection Con;
+        public static Statement statement;
+    static {
+        try {
+            Con = DriverManager.getConnection(host, uName, uPass);
+            statement = Con.createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
+
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage loginStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("res/layout/Login.fxml"));
 
-        primaryStage.setTitle("Phonebook");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        loginStage.setTitle("Phonebook");
+        loginStage.setScene(new Scene(root));
+        loginStage.setResizable(false);
+        loginStage.show();
+
 
        // HomeController homeController = new HomeController();
 

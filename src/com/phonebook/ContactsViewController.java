@@ -1,4 +1,5 @@
 package com.phonebook;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,10 +61,11 @@ public class ContactsViewController extends Application {
     private final String uPass = "1234";
     public static String Name;
     public static String Number;
-    private final Connection con = DriverManager.getConnection(host, uName, uPass);
+
     public String website;
 
     public static String name;
+
 
     //for listview
     private ObservableList<Object> items;
@@ -146,10 +148,9 @@ public class ContactsViewController extends Application {
         itemListView.setOnMouseClicked(event -> {
             Label label = (Label) itemListView.getSelectionModel().getSelectedItem();
             try {
-                Statement Stat = con.createStatement();
                 String s = label.getText();
                 String sql = "SELECT * FROM allcontacts WHERE name=\'" + s + "\'";
-                ResultSet rs = Stat.executeQuery(sql);
+                ResultSet rs = Main.statement.executeQuery(sql);
                 while (rs.next()) {
                     id = rs.getString("id");
                     name = rs.getString("name");
@@ -226,14 +227,13 @@ public class ContactsViewController extends Application {
         ContactDeleteButton.setOnMouseClicked(event -> {
             System.out.println("Delete Clicked");
             try{
-                Statement Stat = con.createStatement();
                 if(id.contains("u")){
                     sql = "DELETE FROM usercontacts WHERE id3='"+id+"'";
                 }else
                 {
                     sql = "DELETE FROM defaultcontacts WHERE id0='"+id+"'";
                 }
-                Stat.executeUpdate(sql);
+                Main.statement.executeUpdate(sql);
                 itemListView.refresh();
                 DisplayContent(Sql);
 
@@ -249,9 +249,8 @@ public class ContactsViewController extends Application {
                 //Class.forName("com.mysql.jdbc.Driver");
                 // TODO: place custom component creation code here
 
-                Statement Stat = con.createStatement();
                 String sql = "SELECT * FROM " + GetCategoryName() + " WHERE name LIKE '%" + newValue + "%'";
-                ResultSet rs = Stat.executeQuery(sql);
+                ResultSet rs = Main.statement.executeQuery(sql);
 
 
                 while (rs.next()) {
@@ -336,9 +335,8 @@ public class ContactsViewController extends Application {
     private void DisplayContent(String sql) {
         try {
             items.clear();
-            Statement Stat = con.createStatement();
             System.out.println(sql);
-            ResultSet rs = Stat.executeQuery(sql);
+            ResultSet rs = Main.statement.executeQuery(sql);
 
 
             while (rs.next()) {

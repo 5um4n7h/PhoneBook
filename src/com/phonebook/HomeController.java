@@ -5,24 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HomeController {
 
     @FXML
-    private Label HomeLabel;
-    @FXML
-    public Button ElectriciansButton;
-    @FXML
-    public Button DoctorsButton;
-    @FXML
-    public HBox base;
+    private Button DoctorsButton;
 
     public static int Cat;
-
+//    Stage HomeStage = (Stage) DoctorsButton.getScene().getWindow();
 
     //to get Category No in other classes
     public static int getCategory() {
@@ -80,16 +72,16 @@ public class HomeController {
 
     private void OpenContactsViewWindow() {
         try {
-            Stage currentStage = (Stage) HomeLabel.getScene().getWindow();
-            Stage newStage = new Stage();
+            Stage HomeStage = (Stage) DoctorsButton.getScene().getWindow();
+            Stage ContactViewStage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("res/layout/ContactsView.fxml"));
-            newStage.setTitle("Phonebook");
-            newStage.setScene(new Scene(root));
-            newStage.setWidth(currentStage.getWidth());
-            newStage.setHeight(currentStage.getHeight());
-            newStage.setResizable(false);
-            newStage.show();
-            currentStage.close();
+            ContactViewStage.setTitle("Phonebook");
+            ContactViewStage.setScene(new Scene(root));
+            ContactViewStage.setWidth(HomeStage.getWidth());
+            ContactViewStage.setHeight(HomeStage.getHeight());
+            ContactViewStage.setResizable(false);
+            ContactViewStage.show();
+            HomeStage.close();
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -101,17 +93,16 @@ public class HomeController {
 
     public void OnLogoutClicked(){
         try {
-
-            Stage currentStage = (Stage) DoctorsButton.getScene().getWindow();
-            Stage newStage = new Stage();
+            Stage HomeStage = (Stage) DoctorsButton.getScene().getWindow();
+            Stage LoginStage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("res/layout/Login.fxml"));
-            newStage.setTitle("Phonebook");
-            newStage.setScene(new Scene(root));
-            newStage.setWidth(currentStage.getWidth());
-            newStage.setHeight(currentStage.getHeight());
-            newStage.setResizable(false);
-            newStage.show();
-            currentStage.close();
+            LoginStage.setTitle("Phonebook");
+            LoginStage.setScene(new Scene(root));
+            LoginStage.setWidth(LoginStage.getWidth());
+            LoginStage.setHeight(LoginStage.getHeight());
+            LoginStage.setResizable(false);
+            LoginStage.show();
+            HomeStage.close();
         } catch (IOException ioException) {
             ioException.printStackTrace();
 
