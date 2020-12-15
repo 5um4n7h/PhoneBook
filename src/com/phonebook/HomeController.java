@@ -98,8 +98,8 @@ public class HomeController {
             Parent root = FXMLLoader.load(getClass().getResource("res/layout/Login.fxml"));
             LoginStage.setTitle("Phonebook");
             LoginStage.setScene(new Scene(root));
-            LoginStage.setWidth(LoginStage.getWidth());
-            LoginStage.setHeight(LoginStage.getHeight());
+            LoginStage.setWidth(HomeStage.getWidth());
+            LoginStage.setHeight(HomeStage.getHeight());
             LoginStage.setResizable(false);
             LoginStage.show();
             HomeStage.close();

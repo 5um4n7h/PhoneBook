@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -10,7 +11,7 @@
 
         <Label fx:id="CategoryLabel" text="Label">
             <font>
-                <Font name="System Bold" size="32.0" />
+                <Font name="System Bold" size="40.0" />
             </font>
       <VBox.margin>
          <Insets bottom="8.0" />
@@ -24,42 +25,122 @@
          <Insets bottom="8.0" />
       </VBox.margin></JFXTextField>
         <HBox prefHeight="400.0" prefWidth="640.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
-      <JFXListView fx:id="itemListView" prefHeight="428.0" prefWidth="193.0" style="-fx-background-radius: 4; -fx-border-radius: 4;" />
-            <VBox prefHeight="468.0" prefWidth="773.0" style="-fx-background-color: #E6FF71; -fx-background-radius: 4; -fx-border-radius: 4;">
-
-                <Label fx:id="ContactNameLabel" prefHeight="38.0" prefWidth="220.0" text="Contact name">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
-                <Label fx:id="DescriptionLabel" prefHeight="27.0" prefWidth="387.0" text="Label">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Label>
-         <Label fx:id="AddressLabel" text="Label">
-            <font>
-               <Font size="16.0" />
-            </font>
-         </Label>
-         <Label fx:id="Ph1Label" text="Label">
-            <font>
-               <Font size="16.0" />
-            </font>
-         </Label>
-         <Label fx:id="Ph2Label" text="Label">
-            <font>
-               <Font size="16.0" />
-            </font>
-         </Label>
-         <Label fx:id="EmailLabel" text="Label">
-            <font>
-               <Font size="16.0" />
-            </font>
-         </Label>
-         <Hyperlink fx:id="WebsiteHyperLink" text="Hyperlink" />
-                <Button fx:id="ContactEditButton" mnemonicParsing="false" text="Edit" />
-                <Button fx:id="ContactDeleteButton" mnemonicParsing="false" text="Delete" />
+      <JFXListView fx:id="itemListView" prefHeight="428.0" prefWidth="281.0" style="-fx-background-radius: 4; -fx-border-radius: 4;" />
+            <VBox prefHeight="428.0" prefWidth="685.0" style="-fx-background-color: WHITE; -fx-background-radius: 4; -fx-border-radius: 4;">
+         <Pane prefHeight="413.0" prefWidth="672.0">
+            <children>
+               <Hyperlink fx:id="WebsiteHyperLink" layoutX="421.0" layoutY="225.0" text="Hyperlink">
+                  <font>
+                     <Font size="14.0" />
+                  </font></Hyperlink>
+               <Label fx:id="Email" layoutX="26.0" layoutY="302.0" text="Email">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
+               <Label fx:id="Ph2Label" layoutX="32.0" layoutY="272.0" text="Label">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="Ph1Label" layoutX="32.0" layoutY="252.0" text="Label">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+               <Label layoutX="26.0" layoutY="226.0" text="Contact Details">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
+               <Label fx:id="AddressLabel" layoutX="35.0" layoutY="146.0" text="Label">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+               <Label layoutX="26.0" layoutY="119.0" text="Address">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
+                      <Label fx:id="DescriptionLabel" alignment="TOP_LEFT" layoutX="33.0" layoutY="45.0" prefHeight="77.0" prefWidth="605.0" text="Label">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+                      </Label>
+      
+                      <Label fx:id="ContactNameLabel" alignment="TOP_LEFT" layoutX="26.0" prefHeight="45.0" prefWidth="514.0" text="Contact name">
+                          <font>
+                              <Font name="System Bold" size="28.0" />
+                          </font>
+                      </Label>
+               <Label layoutX="421.0" layoutY="194.0" prefHeight="25.0" prefWidth="80.0" text="Website">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
+               <Label layoutX="421.0" layoutY="262.0" text="Social Media Links">
+                  <font>
+                     <Font name="System Bold" size="18.0" />
+                  </font>
+               </Label>
+               <Label layoutX="451.0" layoutY="297.0" text="Facebook">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Label layoutX="449.0" layoutY="321.0" text="Instagram">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </Label>
+               <Hyperlink fx:id="FacebookHyperLink" layoutX="524.0" layoutY="294.0" prefHeight="28.0" prefWidth="140.0" text="Hyperlink">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Hyperlink>
+               <Hyperlink fx:id="InstagramHyperLink" layoutX="524.0" layoutY="317.0" prefHeight="28.0" prefWidth="140.0" text="Hyperlink">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Hyperlink>
+               <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="421.0" layoutY="295.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/facebook.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="421.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/instagram.png" />
+                  </image>
+               </ImageView>
+               <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="32.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/googlemap.png" />
+                  </image>
+               </ImageView>
+               <Hyperlink fx:id="AddressHyperLink" layoutX="56.0" layoutY="172.0" text="Hyperlink">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Hyperlink>
+               <Hyperlink fx:id="EmailHyperLink" layoutX="26.0" layoutY="331.0" text="Hyperlink">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Hyperlink>
+               <JFXButton fx:id="ContactEditButton" buttonType="RAISED" layoutX="239.0" layoutY="372.0" maxHeight="30.0" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: #76DFFF;" text="Edit">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </JFXButton>
+               <JFXButton fx:id="ContactDeleteButton" buttonType="RAISED" layoutX="335.0" layoutY="372.0" maxHeight="30.0" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: #76DFFF;" text="Delete">
+                  <font>
+                     <Font name="System Bold" size="14.0" />
+                  </font>
+               </JFXButton>
+            </children>
+         </Pane>
 
                 <padding>
                     <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />

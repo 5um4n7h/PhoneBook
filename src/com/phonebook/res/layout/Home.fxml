@@ -56,25 +56,25 @@
             <RowConstraints maxHeight="58.60000000000002" minHeight="10.0" prefHeight="24.79997558593749" vgrow="ALWAYS" />
             </rowConstraints>
          <ImageView fx:id="ElectriciansImage" fitHeight="82.0" fitWidth="102.0" onMouseClicked="#ElectriciansClicked" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <Image url="@../imgaes/electrician.png" />
+               <Image url="@../images/electrician.png" />
          </ImageView>
          <ImageView fx:id="PlumbersImage" fitHeight="88.0" fitWidth="111.0" layoutX="177.0" layoutY="9.0" onMouseClicked="#PlumbersClicked" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <Image url="@../imgaes/services-plumber.png" />
+               <Image url="@../images/services-plumber.png" />
          </ImageView>
          <ImageView fx:id="CarpentorsImage" fitHeight="90.0" fitWidth="115.0" layoutX="10.0" layoutY="9.0" onMouseClicked="#CarpentorsClicked" pickOnBounds="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <Image url="@../imgaes/carpenter.png" />
+               <Image url="@../images/carpenter.png" />
          </ImageView>
          <ImageView fx:id="LawyersImage" fitHeight="110.0" fitWidth="131.0" layoutX="10.0" layoutY="9.0" onMouseClicked="#LawyersClicked" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <Image url="@../imgaes/lawyer.jpg" />
+               <Image url="@../images/lawyer.jpg" />
          </ImageView>
          <ImageView fx:id="ShopsImage" fitHeight="105.0" fitWidth="140.0" layoutX="10.0" layoutY="9.0" onMouseClicked="#ShopsClicked" pickOnBounds="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <Image url="@../imgaes/shopping.png" />
+               <Image url="@../images/shopping.png" />
          </ImageView>
          <ImageView fx:id="EIImage" fitHeight="123.0" fitWidth="146.0" layoutX="177.0" layoutY="176.0" onMouseClicked="#EIClicked" pickOnBounds="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <Image url="@../imgaes/school.png" />
+               <Image url="@../images/school.png" />
          </ImageView>
          <ImageView fx:id="BanksImage" fitHeight="94.0" fitWidth="105.0" layoutX="10.0" layoutY="9.0" onMouseClicked="#BanksClicked" pickOnBounds="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
-               <Image url="@../imgaes/bank.png" />
+               <Image url="@../images/bank.png" />
          </ImageView>
          <JFXButton fx:id="DoctorsButton" alignment="CENTER" buttonType="RAISED" layoutX="407.0" layoutY="477.0" onAction="#DoctorsClicked" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #69FF81;" text="Doctors" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
              <font>
@@ -118,7 +118,7 @@
          </JFXButton>
          <ImageView fx:id="DoctorsImage" fitHeight="89.0" fitWidth="102.0" onMouseClicked="#DoctorsClicked" pickOnBounds="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <image>
-               <Image url="@../imgaes/doctor.png" />
+               <Image url="@../images/doctor.png" />
             </image>
          </ImageView>
         </GridPane>

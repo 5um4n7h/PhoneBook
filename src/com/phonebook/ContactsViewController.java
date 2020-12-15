@@ -1,19 +1,16 @@
 package com.phonebook;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.*;
+import javafx.fxml.*;
+import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.*;
-import java.util.ResourceBundle;
 
 
 public class ContactsViewController extends Application {
@@ -43,39 +40,46 @@ public class ContactsViewController extends Application {
     @FXML
     private Label Ph2Label;
     @FXML
-    private Label EmailLabel;
-    @FXML
     private Hyperlink WebsiteHyperLink;
+    @FXML
+    private Hyperlink AddressHyperLink;
+    @FXML
+    private Hyperlink EmailHyperLink;
+    @FXML
+    private Hyperlink FacebookHyperLink;
+    @FXML
+    private Hyperlink InstagramHyperLink;
 
-    private static boolean isUserContact = LoginController.getUserType();
+    //private static boolean isUserContact = LoginController.isUser;
 
     public static boolean isCreate;
     public String id;
-    public static int newid=0;
     public static String sql;
     public static String Sql;
 
-    //for jdbc connection
-    private final String host = "jdbc:mysql://localhost:3306/contacts";
-    private final String uName = "root";
-    private final String uPass = "1234";
+
+
+
     public static String Name;
-    public static String Number;
+    public static String Desc;
+    public static String Address;
+    public static String AddressLink;
+    public static String Phn1;
+    public static String Phn2;
+    public static String Email;
+    public static String Website;
+    public static String EmailLink;
+    public static String FacebookLink;
+    public static String InstagramLink;
 
-    public String website;
-
-    public static String name;
 
 
     //for listview
     private ObservableList<Object> items;
 
-    public ContactsViewController() throws SQLException {
-
-    }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage){
 
     }
 
@@ -145,59 +149,10 @@ public class ContactsViewController extends Application {
             }
             break;
         }
+
+
         itemListView.setOnMouseClicked(event -> {
-            Label label = (Label) itemListView.getSelectionModel().getSelectedItem();
-            try {
-                String s = label.getText();
-                String sql = "SELECT * FROM allcontacts WHERE name=\'" + s + "\'";
-                ResultSet rs = Main.statement.executeQuery(sql);
-                while (rs.next()) {
-                    id = rs.getString("id");
-                    name = rs.getString("name");
-                    String desc = rs.getString("description");
-                    String address = rs.getString("address");
-                    String Phn1 = rs.getString("no1");
-                    String Phn2 = rs.getString("no2");
-                    String email = rs.getString("email");
-                    website = rs.getString("website");
-
-
-                    if(LoginController.isUser && id.contains("d")){
-                        isUserContact = true;
-                        // System.out.println("If is true");
-                        ContactDeleteButton.setVisible(false);
-                        ContactEditButton.setVisible(false);
-                    }
-                    else {
-
-                        //System.out.println("If is false");
-                        isUserContact = false;
-
-                        ContactDeleteButton.setVisible(true);
-                        ContactEditButton.setVisible(true);
-
-                    }
-
-                   // System.out.println(phn);
-                    //System.out.println(name);
-                   // System.out.println(GroupFlag);
-                   // System.out.println("---------------------");
-                    ContactNameLabel.setText(name);
-                    Name = name;
-                    // ContactNameLabel.setFont(Font.font("Segoe UI Semibold", FontPosture.REGULAR, 20));
-                    DescriptionLabel.setText(desc);
-                    AddressLabel.setText(address);
-                    Ph1Label.setText(Phn1);
-                    Ph2Label.setText(Phn2);
-                    EmailLabel.setText(email);
-                    WebsiteHyperLink.setText(website);
-
-                }
-
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-
+            ListViewItemSelected();
         });
 
         ContactEditButton.setOnMouseClicked(event -> {
@@ -215,6 +170,7 @@ public class ContactsViewController extends Application {
                 ioException.printStackTrace();
             }
             newStage.setTitle("Phonebook");
+            assert root != null;
             newStage.setScene(new Scene(root));
             newStage.setWidth(currentStage.getWidth());
             newStage.setHeight(currentStage.getHeight());
@@ -249,7 +205,7 @@ public class ContactsViewController extends Application {
                 //Class.forName("com.mysql.jdbc.Driver");
                 // TODO: place custom component creation code here
 
-                String sql = "SELECT * FROM " + GetCategoryName() + " WHERE name LIKE '%" + newValue + "%'";
+                String sql = "SELECT * FROM "  + " WHERE name LIKE '%" + newValue + "%'";
                 ResultSet rs = Main.statement.executeQuery(sql);
 
 
@@ -257,7 +213,6 @@ public class ContactsViewController extends Application {
 
                     String name = rs.getString("name");
                     itemListView.setItems(items);
-                    Object object = new Object();
                     Label label = new Label(name);
                     items.add(label);
 
@@ -265,7 +220,7 @@ public class ContactsViewController extends Application {
                 }
 
             } catch (SQLException ex) {
-                System.out.println(ex);
+                ex.printStackTrace();
             }
 
         });
@@ -290,7 +245,7 @@ public class ContactsViewController extends Application {
                 currentStage.close();
 
             } catch (Exception exception) {
-                System.out.println(exception);
+                exception.printStackTrace();
             }
 
         });
@@ -320,12 +275,11 @@ public class ContactsViewController extends Application {
             }
         });
 
-
-
-        WebsiteHyperLink.setOnAction(actionEvent -> {
-            getHostServices().showDocument(website);
-
-        });
+        AddressHyperLink.setOnAction(actionEvent -> getHostServices().showDocument(AddressLink));
+        EmailHyperLink.setOnAction(actionEvent -> getHostServices().showDocument("mailto:"+EmailLink));
+        WebsiteHyperLink.setOnAction(actionEvent -> getHostServices().showDocument(Website));
+        FacebookHyperLink.setOnAction(actionEvent -> getHostServices().showDocument(FacebookLink));
+        InstagramHyperLink.setOnAction(actionEvent -> getHostServices().showDocument(InstagramLink));
 
     }
 
@@ -354,32 +308,79 @@ public class ContactsViewController extends Application {
                // itemListView.refresh();
 
             }
+            itemListView.getSelectionModel().select(0);
+            ListViewItemSelected();
+
 
         } catch (SQLException ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
         }
     }
 
-    public static String GetCategoryName() {
-        switch (HomeController.getCategory()) {
-            case 0: return "doctors";
-            case 1:return "electricians";
+
+    private void ListViewItemSelected(){
+        Label label = (Label) itemListView.getSelectionModel().getSelectedItem();
+        try {
+            String s = label.getText();
+            String sql = "SELECT * FROM allcontacts WHERE name='" + s + "'";
+            ResultSet rs = Main.statement.executeQuery(sql);
+            while (rs.next()) {
+                id = rs.getString("id");
+                Name= rs.getString("name");
+                Desc = rs.getString("description");
+                Address = rs.getString("address");
+                AddressLink  = rs.getString("address_link");
+                Phn1 = rs.getString("no1");
+                Phn2 = rs.getString("no2");
+                EmailLink = rs.getString("email");
+                Website = rs.getString("website");
+                FacebookLink = rs.getString("facebook");
+                InstagramLink = rs.getString("instagram");
+
+
+                if(LoginController.isUser && id.contains("d")){
+                    // System.out.println("If is true");
+                    ContactDeleteButton.setVisible(false);
+                    ContactEditButton.setVisible(false);
+                }
+                else {
+
+                    //System.out.println("If is false");
+
+                    ContactDeleteButton.setVisible(true);
+                    ContactEditButton.setVisible(true);
+
+                }
+
+                // System.out.println(phn);
+                //System.out.println(name);
+                // System.out.println(GroupFlag);
+                // System.out.println("---------------------");
+                ContactNameLabel.setWrapText(true);
+                ContactNameLabel.setText(Name);
+                DescriptionLabel.setWrapText(true);
+                DescriptionLabel.setText(Desc);
+                AddressLabel.setWrapText(true);
+                AddressLabel.setText(Address);
+                AddressHyperLink.setText(AddressLink);
+                Ph1Label.setText(Phn1);
+                Ph2Label.setText(Phn2);
+                EmailHyperLink.setText(EmailLink);
+                WebsiteHyperLink.setText(Website);
+                FacebookHyperLink.setText(FacebookLink);
+                InstagramHyperLink.setText(InstagramLink);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    return null;
+
+
     }
 
 
 
-
-
-    public static String getData(String data){
-        switch (data){
-            case "name": return Name;
-            case "number" : return Number;
-
-        }
-        return null;
-    }
 
 
 

@@ -42,7 +42,7 @@
                </font>
             </Label>
                       <ImageView fx:id="icon" fitHeight="52.0" fitWidth="63.0" layoutX="207.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
-                          <Image url="@../imgaes/user.png" />
+                          <Image url="@../images/user.png" />
                       </ImageView>
 
                   </AnchorPane>
