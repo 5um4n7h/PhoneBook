@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="PhoneBook">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/PhoneBook_jar/PhoneBook.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

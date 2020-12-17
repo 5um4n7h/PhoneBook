@@ -53,7 +53,7 @@ public class ContactsViewController extends Application {
     //private static boolean isUserContact = LoginController.isUser;
 
     public static boolean isCreate;
-    public String id;
+    public static String id;
     public static String sql;
     public static String Sql;
 
@@ -102,21 +102,21 @@ public class ContactsViewController extends Application {
             case 1: {
                 System.out.println("Case 1");
                 CategoryLabel.setText("Electricians");
-                Sql = "SELECT * FROM defaultcontacts,usercontacts WHERE category=1";
+                Sql = "select * from allcontacts WHERE category=1";
                 DisplayContent(Sql);
             }
             break;
 
             case 2:{
                 CategoryLabel.setText("Plumbers");
-                Sql = "SELECT * FROM defaultcontacts WHERE category=2";
+                Sql = "select * from allcontacts WHERE category=2";
                 DisplayContent(Sql);
             }
             break;
 
             case 3:{
                 CategoryLabel.setText("Carpentors");
-                Sql = "SELECT * FROM defaultcontacts WHERE category=3";
+                Sql = "select * from allcontacts WHERE category=3";
                 DisplayContent(Sql);
             }
             break;
@@ -130,21 +130,21 @@ public class ContactsViewController extends Application {
 
             case 5:{
                 CategoryLabel.setText("Shops");
-                Sql = "SELECT * FROM defaultcontacts WHERE category=5";
+                Sql = "select * from allcontacts WHERE category=5";
                 DisplayContent(Sql);
             }
             break;
 
             case 6:{
                 CategoryLabel.setText("Educational Institutions");
-                Sql = "SELECT * FROM defaultcontacts WHERE category=6";
+                Sql = "select * from allcontacts WHERE category=6";
                 DisplayContent(Sql);
             }
             break;
 
             case 7:{
                 CategoryLabel.setText("Banks");
-                Sql = "SELECT * FROM defaultcontacts WHERE category=7";
+                Sql = "select * from allcontacts WHERE category=7";
                 DisplayContent(Sql);
             }
             break;
@@ -184,10 +184,10 @@ public class ContactsViewController extends Application {
             System.out.println("Delete Clicked");
             try{
                 if(id.contains("u")){
-                    sql = "DELETE FROM usercontacts WHERE id3='"+id+"'";
+                    sql = "DELETE FROM usercontacts WHERE id='"+id+"'";
                 }else
                 {
-                    sql = "DELETE FROM defaultcontacts WHERE id0='"+id+"'";
+                    sql = "DELETE FROM defaultcontacts WHERE id='"+id+"'";
                 }
                 Main.statement.executeUpdate(sql);
                 itemListView.refresh();
