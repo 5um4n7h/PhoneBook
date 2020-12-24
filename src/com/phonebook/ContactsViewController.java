@@ -74,7 +74,7 @@ public class ContactsViewController extends Application {
     public static boolean isCreate;
     public static String id;
     public static String sql;
-    public static String Sql;
+    public static String ViewSql;
 
 
 
@@ -107,14 +107,15 @@ public class ContactsViewController extends Application {
         if(!LoginController.isUser)
             ReportButton.setVisible(false);
         System.out.println("Init called");
+        ViewSql = "call getAllContacts("+HomeController.Cat+")";
         items = FXCollections.observableArrayList();
         switch (HomeController.getCategory()) {
             case 0: {
                 System.out.println("Case 0");
                 CategoryLabel.setText("Doctors");
                 //sql = "SELECT * FROM defaultcontacts,defaultcontactdetails,defaultcontactsocial WHERE category = 0";
-                Sql = "call getAllContacts(0)";
-                DisplayContent(Sql);
+
+                DisplayContent(ViewSql);
                 //sql = "SELECT * FROM usercontacts WHERE usercontacts.category=0";
                // DisplayContent(sql);
             }
@@ -123,50 +124,50 @@ public class ContactsViewController extends Application {
             case 1: {
                 System.out.println("Case 1");
                 CategoryLabel.setText("Electricians");
-                Sql = "select * from allcontacts WHERE category=1";
-                DisplayContent(Sql);
+               // ViewSql = "call getAllContacts("+HomeController.Cat+")";
+                DisplayContent(ViewSql);
             }
             break;
 
             case 2:{
                 CategoryLabel.setText("Plumbers");
-                Sql = "select * from allcontacts WHERE category=2";
-                DisplayContent(Sql);
+               // ViewSql = "call getAllContacts("+HomeController.Cat+")";
+                DisplayContent(ViewSql);
             }
             break;
 
             case 3:{
                 CategoryLabel.setText("Carpentors");
-                Sql = "select * from allcontacts WHERE category=3";
-                DisplayContent(Sql);
+               // ViewSql = "call getAllContacts("+HomeController.Cat+")";
+                DisplayContent(ViewSql);
             }
             break;
 
             case 4:{
                 CategoryLabel.setText("Lawyers");
-                Sql = "SELECT * FROM defaultcontacts WHERE category=4";
-                DisplayContent(Sql);
+               // ViewSql = "SELECT * FROM defaultcontacts WHERE category=4";
+                DisplayContent(ViewSql);
             }
             break;
 
             case 5:{
                 CategoryLabel.setText("Shops");
-                Sql = "select * from allcontacts WHERE category=5";
-                DisplayContent(Sql);
+               // ViewSql = "select * from allcontacts WHERE category=5";
+                DisplayContent(ViewSql);
             }
             break;
 
             case 6:{
                 CategoryLabel.setText("Educational Institutions");
-                Sql = "select * from allcontacts WHERE category=6";
-                DisplayContent(Sql);
+               // ViewSql = "select * from allcontacts WHERE category=6";
+                DisplayContent(ViewSql);
             }
             break;
 
             case 7:{
                 CategoryLabel.setText("Banks");
-                Sql = "select * from allcontacts WHERE category=7";
-                DisplayContent(Sql);
+              //  ViewSql = "select * from allcontacts WHERE category=7";
+                DisplayContent(ViewSql);
             }
             break;
         }
@@ -324,7 +325,7 @@ public class ContactsViewController extends Application {
                         }
                         Main.statement.executeUpdate(sql);
                         itemListView.refresh();
-                        DisplayContent(Sql);
+                        DisplayContent(ViewSql);
 
                         Text title = new Text("Alert");
                         title.setStyle("-fx-font-size:20");

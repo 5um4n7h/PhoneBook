@@ -11,10 +11,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 
@@ -46,7 +49,8 @@ public class CreateContactController {
 	private TextField InstagramLinkText;
 	@FXML
 	private StackPane stackPane;
-
+	@FXML
+	private HBox hbox;
 
 
 	public int Id;
@@ -54,8 +58,8 @@ public class CreateContactController {
 	public String Sql1;
 	public String Sql2;
 	public String Sql3;
-	public long Phn1;
-	public long Phn2;
+	public String Phn1;
+	public String Phn2;
 
 
 	public int CategoryFlag = HomeController.getCategory();
@@ -64,7 +68,26 @@ public class CreateContactController {
 	public CreateContactController() throws SQLException {
 	}
 
-	public void initialize() {
+	public void initialize() throws FileNotFoundException {
+		FileInputStream input = new FileInputStream("C:\\Users\\Sumanth Hegde\\IdeaProjects\\PhoneBook\\src\\com\\phonebook\\CreateContact.png");
+
+		// create a image
+		Image image = new Image(input);
+
+		// create a background image
+		BackgroundImage backgroundimage = new BackgroundImage(image,
+				  BackgroundRepeat.NO_REPEAT,
+				  BackgroundRepeat.NO_REPEAT,
+				  BackgroundPosition.DEFAULT,
+				  BackgroundSize.DEFAULT);
+
+		// create Background
+		Background background = new Background(backgroundimage);
+
+		// set background
+	//	hbox.setBackground(background);
+
+
 		if (ContactsViewController.isCreate) {
 
 			ContactSaveButton.setOnMouseClicked(event -> {
@@ -94,20 +117,15 @@ public class CreateContactController {
 				String AddressLink = AddressLinkText.getText();
 
 
-				try {
-					Phn1 = Long.parseLong(Phn1Text.getText());
-					System.out.println(Phn1);
-				} catch (NumberFormatException exception) {
-
-
-				}
-				Phn2 = Long.parseLong(Phn2Text.getText());
+				Phn1 = Phn1Text.getText();
+				Phn2 = Phn2Text.getText();
 				String Email = EmailText.getText();
 				String Website = WebsiteText.getText();
 				String Facebook = FacebookLinkText.getText();
 				String Instagram = InstagramLinkText.getText();
 
 				try {
+
 					if (LoginController.isUser) {
 						Sql1 = "INSERT INTO usercontacts  VALUES('" + ContactID + "','" + HomeController.getCategory() + "','" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "')";
 						Sql2 = "INSERT INTO usercontactdetails VALUES('" + ContactID + "','" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
@@ -200,8 +218,8 @@ public class CreateContactController {
 			DesriptionText.setText(ContactsViewController.Desc);
 			AddressText.setText(ContactsViewController.Address);
 			AddressLinkText.setText(ContactsViewController.AddressLink);
-			Phn1Text.setText(String.valueOf(ContactsViewController.Phn1));
-			Phn2Text.setText(String.valueOf(ContactsViewController.Phn2));
+			Phn1Text.setText(ContactsViewController.Phn1);
+			Phn2Text.setText(ContactsViewController.Phn2);
 			EmailText.setText(ContactsViewController.EmailLink);
 			WebsiteText.setText(ContactsViewController.Website);
 			FacebookLinkText.setText(ContactsViewController.FacebookLink);
@@ -221,7 +239,6 @@ public class CreateContactController {
 				String Instagram = InstagramLinkText.getText();
 
 				try {
-
 					if (LoginController.isUser) {
 						Sql1 = "update usercontacts set name='" + Name + "',description='" + Desc + "',address='" + Address + "',address_link='" + AddressLink + "' where id='" + ContactId + "'";
 						Sql2 = "update usercontactdetails set no1='" + Phn1 + "',no2='" + Phn2 + "',email='" + Email + "',website='" + Website + "' where id='" + ContactId + "'";
