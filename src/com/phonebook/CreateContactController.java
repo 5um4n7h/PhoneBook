@@ -69,20 +69,20 @@ public class CreateContactController {
 	}
 
 	public void initialize() throws FileNotFoundException {
-		FileInputStream input = new FileInputStream("C:\\Users\\Sumanth Hegde\\IdeaProjects\\PhoneBook\\src\\com\\phonebook\\CreateContact.png");
+		//FileInputStream input = new FileInputStream("C:\\Users\\Sumanth Hegde\\IdeaProjects\\PhoneBook\\src\\com\\phonebook\\CreateContact.png");
 
 		// create a image
-		Image image = new Image(input);
+		//Image image = new Image(input);
 
 		// create a background image
-		BackgroundImage backgroundimage = new BackgroundImage(image,
-				  BackgroundRepeat.NO_REPEAT,
-				  BackgroundRepeat.NO_REPEAT,
-				  BackgroundPosition.DEFAULT,
-				  BackgroundSize.DEFAULT);
+		//BackgroundImage backgroundimage = new BackgroundImage(image,
+				 // BackgroundRepeat.NO_REPEAT,
+				 // BackgroundRepeat.NO_REPEAT,
+				 // BackgroundPosition.DEFAULT,
+				 // BackgroundSize.DEFAULT);
 
 		// create Background
-		Background background = new Background(backgroundimage);
+		//Background background = new Background(backgroundimage);
 
 		// set background
 	//	hbox.setBackground(background);

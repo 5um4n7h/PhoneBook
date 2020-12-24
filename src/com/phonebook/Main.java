@@ -23,7 +23,7 @@ public class Main extends Application {
 	//to connect to MySQL DB
 	public final String host = "jdbc:mysql://localhost:3306/contacts";
 	public final String uName = "root";
-	public final String uPass = "Jnirmal414@";
+	public final String uPass = "1234";
 	public Connection Con;
 	public static Statement statement;
 
