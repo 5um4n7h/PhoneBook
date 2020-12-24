@@ -47,9 +47,7 @@ public class CreateContactController {
 	@FXML
 	private StackPane stackPane;
 
-	private final String host = "jdbc:mysql://localhost:3306/contacts";
-	private final String uName = "root";
-	private final String uPass = "1234";
+
 
 	public int Id;
 	public String ContactID;
@@ -59,7 +57,6 @@ public class CreateContactController {
 	public long Phn1;
 	public long Phn2;
 
-	private Connection con = DriverManager.getConnection(host, uName, uPass);
 
 	public int CategoryFlag = HomeController.getCategory();
 
@@ -73,9 +70,9 @@ public class CreateContactController {
 			ContactSaveButton.setOnMouseClicked(event -> {
 
 				try {
-					Statement Stat = con.createStatement();
+
 					String Sql = "select * from id";
-					ResultSet rs = Stat.executeQuery(Sql);
+					ResultSet rs = Main.statement.executeQuery(Sql);
 					while (rs.next()) {
 						Id = (rs.getInt("id"));
 						System.out.println(Id);
@@ -111,7 +108,6 @@ public class CreateContactController {
 				String Instagram = InstagramLinkText.getText();
 
 				try {
-					Statement Stat = con.createStatement();
 					if (LoginController.isUser) {
 						Sql1 = "INSERT INTO usercontacts  VALUES('" + ContactID + "','" + HomeController.getCategory() + "','" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "')";
 						Sql2 = "INSERT INTO usercontactdetails VALUES('" + ContactID + "','" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
@@ -122,9 +118,9 @@ public class CreateContactController {
 						Sql3 = "INSERT INTO defaultcontactsocial VALUES('" + ContactID + "','" + Facebook + "','" + Instagram + "')";
 					}
 
-					Stat.executeUpdate(Sql1);
-					Stat.executeUpdate(Sql2);
-					Stat.executeUpdate(Sql3);
+					Main.statement.executeUpdate(Sql1);
+					Main.statement.executeUpdate(Sql2);
+					Main.statement.executeUpdate(Sql3);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -225,7 +221,7 @@ public class CreateContactController {
 				String Instagram = InstagramLinkText.getText();
 
 				try {
-					Statement Stat = con.createStatement();
+
 					if (LoginController.isUser) {
 						Sql1 = "update usercontacts set name='" + Name + "',description='" + Desc + "',address='" + Address + "',address_link='" + AddressLink + "' where id='" + ContactId + "'";
 						Sql2 = "update usercontactdetails set no1='" + Phn1 + "',no2='" + Phn2 + "',email='" + Email + "',website='" + Website + "' where id='" + ContactId + "'";
@@ -237,9 +233,9 @@ public class CreateContactController {
 						Sql3 = "update defaultcontactsocial set facebook='" + Facebook + "',instagram='" + Instagram + "' where id='" + ContactId + "'";
 
 					}
-					Stat.executeUpdate(Sql1);
-					Stat.executeUpdate(Sql2);
-					Stat.executeUpdate(Sql3);
+					Main.statement.executeUpdate(Sql1);
+					Main.statement.executeUpdate(Sql2);
+					Main.statement.executeUpdate(Sql3);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
