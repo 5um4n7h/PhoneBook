@@ -47,7 +47,4 @@ External Libraries required :
   5.On Intellij go to Run->configurations-> and add VM options as --module-path "C:\Program Files\Java\javafx-sdk-11.0.2\lib" --add-modules=javafx.controls,javafx.fxml
    (we have to manually specify the javafx library path to jvm because javfx is not part of JDK in JDK 11 or above)
    
-  6.Click on DB browser and create a MySQL connection,  give the same username and password as in MySQL server and download this [mysql-connector-java-8.0.21]   (https://dev.mysql.com/downloads/file/?id=498587) jar. set driver source as external library and add driver library path to downloaded jar
-  
-
-  
+  6.Click on DB browser and create a MySQL connection,  give the same username and password as in MySQL server and download this [mysql-connector-java-8.0.21]   (https://dev.mysql.com/downloads/file/?id=498587) jar. set driver source as external library and add driver library path to downloaded jar.
