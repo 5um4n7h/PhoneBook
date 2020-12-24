@@ -1,14 +1,21 @@
 package com.phonebook;
 
+import com.jfoenix.controls.*;
+import javafx.event.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.*;
-import javafx.stage.Stage;
-import java.io.*;
-import java.sql.*;
+import javafx.scene.layout.StackPane;
 
-public class LoginController {
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import java.io.*;
+import java.sql.ResultSet;
+
+
+public class LoginController{
 
 	public static boolean isUser = true;
 	@FXML
@@ -21,10 +28,12 @@ public class LoginController {
 	private PasswordField password;
 	@FXML
 	private ImageView icon;
+	@FXML
+	private StackPane stackPane;
 
 	public String pass;
 	public String UserType;
-
+	public Parent root;
 
 	public void OnChangeLoginClick() {
 
@@ -54,6 +63,34 @@ public class LoginController {
 	}
 
 	public void OnLoginButtonClick() {
+		if(username.getText().isBlank()||password.getText().isBlank()){
+
+			Text title =new Text( "Alert");
+			title.setStyle("-fx-font-size:20");
+			Text text = new Text("Enter User Name and Password !!");
+			text.setStyle("-fx-font-size:14");
+			JFXDialogLayout dialogContent = new JFXDialogLayout();
+			dialogContent.setHeading(title);
+			dialogContent.setBody(text);
+			JFXButton close = new JFXButton("Close");
+			close.setButtonType(JFXButton.ButtonType.RAISED);
+			close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+			dialogContent.setActions(close);
+			JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+			close.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent __) {
+					dialog.close();
+				}
+			});
+			dialog.show();
+			return;
+
+
+		}
+
+
+
 		System.out.println("Clicked");
 		if (isUser) {
 			UserType = "user";
@@ -78,7 +115,7 @@ public class LoginController {
 					// do what you have to do
 
 					Stage HomeStage = new Stage();
-					Parent root = FXMLLoader.load(getClass().getResource("res/layout/Home.fxml"));
+					root = FXMLLoader.load(getClass().getResource("res/layout/Home.fxml"));
 					HomeStage.setTitle("Phonebook");
 					HomeStage.setScene(new Scene(root));
 					HomeStage.setWidth(currentStage.getWidth());
@@ -92,28 +129,50 @@ public class LoginController {
 
 				}
 			} else {
-				Alert alert = new Alert(Alert.AlertType.WARNING, "Wrong password!");
-				alert.show();
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException interruptedException) {
-					interruptedException.printStackTrace();
-				}
-				alert.hide();
+
+				Text title =new Text( "Alert");
+				title.setStyle("-fx-font-size:20");
+				Text text = new Text("Wrong password!!");
+				text.setStyle("-fx-font-size:14");
+				JFXDialogLayout dialogContent = new JFXDialogLayout();
+				dialogContent.setHeading(title);
+				dialogContent.setBody(text);
+				JFXButton close = new JFXButton("Close");
+				close.setButtonType(JFXButton.ButtonType.RAISED);
+				close.setStyle("-fx-background-color: #69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+				dialogContent.setActions(close);
+				JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+				close.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent __) {
+						dialog.close();
+					}
+				});
+				dialog.show();
 
 
 			}
 		} catch (Exception e) {
-			System.out.println("User not found");
-			Alert alert = new Alert(Alert.AlertType.WARNING, "User not found");
-			alert.show();
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException interruptedException) {
-				interruptedException.printStackTrace();
-			}
-			alert.hide();
-			System.out.println("Error: " + e);
+			Text title =new Text( "Alert");
+			title.setStyle("-fx-font-size:20");
+			Text text = new Text("User not found!!");
+			text.setStyle("-fx-font-size:14");
+			JFXDialogLayout dialogContent = new JFXDialogLayout();
+			dialogContent.setHeading(title);
+			dialogContent.setBody(text);
+			JFXButton close = new JFXButton("Close");
+			close.setButtonType(JFXButton.ButtonType.RAISED);
+			close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+			dialogContent.setActions(close);
+			JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+			close.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent __) {
+					dialog.close();
+				}
+			});
+			dialog.show();
+			e.printStackTrace();
 		}
 	}
 

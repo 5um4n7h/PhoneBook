@@ -1,11 +1,18 @@
 package com.phonebook;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,6 +44,8 @@ public class CreateContactController {
 	private TextField FacebookLinkText;
 	@FXML
 	private TextField InstagramLinkText;
+	@FXML
+	private StackPane stackPane;
 
 	private final String host = "jdbc:mysql://localhost:3306/contacts";
 	private final String uName = "root";
@@ -47,6 +56,8 @@ public class CreateContactController {
 	public String Sql1;
 	public String Sql2;
 	public String Sql3;
+	public long Phn1;
+	public long Phn2;
 
 	private Connection con = DriverManager.getConnection(host, uName, uPass);
 
@@ -57,10 +68,7 @@ public class CreateContactController {
 	}
 
 	public void initialize() {
-
-
 		if (ContactsViewController.isCreate) {
-
 
 			ContactSaveButton.setOnMouseClicked(event -> {
 
@@ -87,8 +95,16 @@ public class CreateContactController {
 				String Desc = DesriptionText.getText();
 				String Address = AddressText.getText();
 				String AddressLink = AddressLinkText.getText();
-				String Phn1 = Phn1Text.getText();
-				String Phn2 = Phn2Text.getText();
+
+
+				try {
+					Phn1 = Long.parseLong(Phn1Text.getText());
+					System.out.println(Phn1);
+				} catch (NumberFormatException exception) {
+
+
+				}
+				Phn2 = Long.parseLong(Phn2Text.getText());
 				String Email = EmailText.getText();
 				String Website = WebsiteText.getText();
 				String Facebook = FacebookLinkText.getText();
@@ -105,38 +121,91 @@ public class CreateContactController {
 						Sql2 = "INSERT INTO defaultcontactdetails VALUES('" + ContactID + "','" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
 						Sql3 = "INSERT INTO defaultcontactsocial VALUES('" + ContactID + "','" + Facebook + "','" + Instagram + "')";
 					}
+
 					Stat.executeUpdate(Sql1);
 					Stat.executeUpdate(Sql2);
 					Stat.executeUpdate(Sql3);
-					//useruStat.executeUpdate(Sql3);
+
 				} catch (Exception e) {
 					e.printStackTrace();
+
+					Text title = new Text("Alert");
+					title.setStyle("-fx-font-size:20");
+					Text text = new Text("Contact Creation Failed");
+					text.setStyle("-fx-font-size:14");
+					JFXDialogLayout dialogContent = new JFXDialogLayout();
+					dialogContent.setHeading(title);
+					dialogContent.setBody(text);
+					JFXButton close = new JFXButton("Close");
+					close.setButtonType(JFXButton.ButtonType.RAISED);
+					close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+					dialogContent.setActions(close);
+					JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+
+					close.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent __) {
+							dialog.close();
+							Stage currentStage = (Stage) NameText.getScene().getWindow();
+
+							try {
+								Stage newStage = new Stage();
+								Parent root = FXMLLoader.load(getClass().getResource("res/layout/CreateContact.fxml"));
+								newStage.setTitle("Phonebook");
+								newStage.setScene(new Scene(root));
+								newStage.setWidth(currentStage.getWidth());
+								newStage.setHeight(currentStage.getHeight());
+								newStage.setResizable(false);
+								newStage.show();
+								currentStage.close();
+							} catch (Exception ex) {
+								ex.printStackTrace();
+							}
+
+
+						}
+					});
+					dialog.show();
+
+
 				}
 
-				Stage currentStage = (Stage) NameText.getScene().getWindow();
 
-				try {
-					Stage newStage = new Stage();
-					Parent root = FXMLLoader.load(getClass().getResource("res/layout/ContactsView.fxml"));
-					newStage.setTitle("Phonebook");
-					newStage.setScene(new Scene(root));
-					newStage.setWidth(currentStage.getWidth());
-					newStage.setHeight(currentStage.getHeight());
-					newStage.setResizable(false);
-					newStage.show();
-					currentStage.close();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
+				Text title = new Text("Alert");
+				title.setStyle("-fx-font-size:20");
+				Text text = new Text("Contact Added Successfully");
+				text.setStyle("-fx-font-size:14");
+				JFXDialogLayout dialogContent = new JFXDialogLayout();
+				dialogContent.setHeading(title);
+				dialogContent.setBody(text);
+				JFXButton close = new JFXButton("Close");
+				close.setButtonType(JFXButton.ButtonType.RAISED);
+				close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+				dialogContent.setActions(close);
+				JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+				close.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent __) {
+						dialog.close();
+					   BackClicked();
+
+
+					}
+				});
+				dialog.show();
+
+
 			});
 		} else {
+
+			ContactSaveButton.setText("Update");
 
 			NameText.setText(ContactsViewController.Name);
 			DesriptionText.setText(ContactsViewController.Desc);
 			AddressText.setText(ContactsViewController.Address);
 			AddressLinkText.setText(ContactsViewController.AddressLink);
-			Phn1Text.setText(ContactsViewController.Phn1);
-			Phn2Text.setText(ContactsViewController.Phn2);
+			Phn1Text.setText(String.valueOf(ContactsViewController.Phn1));
+			Phn2Text.setText(String.valueOf(ContactsViewController.Phn2));
 			EmailText.setText(ContactsViewController.EmailLink);
 			WebsiteText.setText(ContactsViewController.Website);
 			FacebookLinkText.setText(ContactsViewController.FacebookLink);
@@ -177,44 +246,57 @@ public class CreateContactController {
 
 				Stage currentStage = (Stage) NameText.getScene().getWindow();
 
-				try {
-					Stage newStage = new Stage();
-					Parent root = FXMLLoader.load(getClass().getResource("res/layout/ContactsView.fxml"));
-					newStage.setTitle("Phonebook");
-					newStage.setScene(new Scene(root));
-					newStage.setWidth(currentStage.getWidth());
-					newStage.setHeight(currentStage.getHeight());
-					newStage.setResizable(false);
-					newStage.show();
-					currentStage.close();
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
+
+
+
+				Text title = new Text("Alert");
+				title.setStyle("-fx-font-size:20");
+				Text text = new Text("Contact Updated Successfully");
+				text.setStyle("-fx-font-size:14");
+				JFXDialogLayout dialogContent = new JFXDialogLayout();
+				dialogContent.setHeading(title);
+				dialogContent.setBody(text);
+				JFXButton close = new JFXButton("Close");
+				close.setButtonType(JFXButton.ButtonType.RAISED);
+				close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+				dialogContent.setActions(close);
+				JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+
+				close.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent __) {
+						dialog.close();
+						BackClicked();
+
+
+					}
+
+				});
+				dialog.show();
+
+
 
 
 
 			});
-
+		}
 
 		}
 
-
-	}
-
-	public void BackClicked() {
-		try {
-			Stage CreateContactStage = (Stage) ContactSaveButton.getScene().getWindow();
-			Stage ContactViewStage = new Stage();
-			Parent root = FXMLLoader.load(getClass().getResource("res/layout/ContactsView.fxml"));
-			ContactViewStage.setTitle("Phonebook");
-			ContactViewStage.setScene(new Scene(root));
-			ContactViewStage.setWidth(CreateContactStage.getWidth());
-			ContactViewStage.setHeight(CreateContactStage.getHeight());
-			ContactViewStage.setResizable(false);
-			ContactViewStage.show();
-			CreateContactStage.close();
-		} catch (IOException ioException) {
-			ioException.printStackTrace();
+		public void BackClicked () {
+			try {
+				Stage CreateContactStage = (Stage) ContactSaveButton.getScene().getWindow();
+				Stage ContactViewStage = new Stage();
+				Parent root = FXMLLoader.load(getClass().getResource("res/layout/ContactsView.fxml"));
+				ContactViewStage.setTitle("Phonebook");
+				ContactViewStage.setScene(new Scene(root));
+				ContactViewStage.setWidth(CreateContactStage.getWidth());
+				ContactViewStage.setHeight(CreateContactStage.getHeight());
+				ContactViewStage.setResizable(false);
+				ContactViewStage.show();
+				CreateContactStage.close();
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
 		}
 	}
-}
