@@ -12,9 +12,25 @@ public class HomeController {
 
     @FXML
     private Button DoctorsButton;
+    @FXML
+    private Button RequestsButton;
+    @FXML
+    private Button FeedbacksButton;
 
     public static int Cat;
 //    Stage HomeStage = (Stage) DoctorsButton.getScene().getWindow();
+
+    public void initialize(){
+        if(LoginController.isUser)
+        {
+            RequestsButton.setVisible(false);
+            FeedbacksButton.setVisible(false);
+
+        }else {
+            RequestsButton.setVisible(true);
+            FeedbacksButton.setVisible(false);
+        }
+    }
 
     //to get Category No in other classes
     public static int getCategory() {

@@ -13,30 +13,76 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 
 public class LoginController{
 
 	public static boolean isUser = true;
+	public static boolean isNew = false;
 	@FXML
 	private Button ChangeLogin;
 	@FXML
 	private Label LoginType;
 	@FXML
-	private TextField username;
+	public TextField username;
 	@FXML
 	private PasswordField password;
 	@FXML
 	private ImageView icon;
 	@FXML
 	private StackPane stackPane;
+	@FXML
+	private Button UserCreateButton;
+	@FXML
+	private Button LoginButton;
 
 	public String pass;
+	public String Sql;
 	public String UserType;
 	public Parent root;
+	public Boolean Clickedflag=false;
+
+
+	public void initialize(){
+
+		UserCreateButton.setOnMouseClicked(mouseEvent -> {
+			if(Clickedflag)
+			{
+				Clickedflag = false;
+				isNew = false;
+				isUser = true;
+				LoginButton.setText("Login");
+				LoginType.setText("User Log in");
+				ChangeLogin.setVisible(true);
+				ChangeLogin.setText("login as Admin");
+				UserCreateButton.setText("Create New User");
+				MakeEmpty();
+				try {
+					icon.setImage(new Image(new FileInputStream("src\\com\\phonebook\\res\\images\\user.png")));
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+				return;
+			}
+         Clickedflag = true;
+			LoginType.setText("Create User");
+			try {
+				icon.setImage(new Image(new FileInputStream("src\\com\\phonebook\\res\\images\\user.png")));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			LoginButton.setText("Sign Up");
+			isNew = true;
+			ChangeLogin.setVisible(false);
+			UserCreateButton.setText("Back to login");
+
+		});
+
+	}
 
 	public void OnChangeLoginClick() {
-
+		MakeEmpty();
 		//System.out.println("Change Login Button Clicked");
 		if (isUser) {
 			LoginType.setText("Admin Login");
@@ -62,7 +108,80 @@ public class LoginController{
 
 	}
 
+	public void MakeEmpty(){
+		username.setText("");
+		password.setText("");
+	}
+
 	public void OnLoginButtonClick() {
+		if(isNew){
+
+			Sql ="insert into authentication set type='user',username='"+username.getText()+"',password='"+password.getText()+"'";
+			try {
+				Main.statement.executeUpdate(Sql);
+				Text title =new Text( "Alert");
+				title.setStyle("-fx-font-size:20");
+				Text text = new Text("Sign up Successful, Now you can login with your username and password.");
+				text.setStyle("-fx-font-size:14");
+				JFXDialogLayout dialogContent = new JFXDialogLayout();
+				dialogContent.setHeading(title);
+				dialogContent.setBody(text);
+				JFXButton close = new JFXButton("Close");
+				close.setButtonType(JFXButton.ButtonType.RAISED);
+				close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+				dialogContent.setActions(close);
+				JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+				close.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent __) {
+						dialog.close();
+						Clickedflag = false;
+						isNew = false;
+						isUser = true;
+						LoginButton.setText("Login");
+						LoginType.setText("User Log in");
+						ChangeLogin.setVisible(true);
+						ChangeLogin.setText("login as Admin");
+						UserCreateButton.setText("Create New User");
+						MakeEmpty();
+						try {
+							icon.setImage(new Image(new FileInputStream("src\\com\\phonebook\\res\\images\\user.png")));
+						} catch (FileNotFoundException e) {
+							e.printStackTrace();
+						}
+
+					}
+
+				});
+				dialog.show();
+
+
+			} catch (SQLException throwables) {
+				throwables.printStackTrace();
+
+				Text title =new Text( "Alert");
+				title.setStyle("-fx-font-size:20");
+				Text text = new Text("Sign up Failed");
+				text.setStyle("-fx-font-size:14");
+				JFXDialogLayout dialogContent = new JFXDialogLayout();
+				dialogContent.setHeading(title);
+				dialogContent.setBody(text);
+				JFXButton close = new JFXButton("Close");
+				close.setButtonType(JFXButton.ButtonType.RAISED);
+				close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+				dialogContent.setActions(close);
+				JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+				close.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent __) {
+						dialog.close();
+
+					}
+				});
+				dialog.show();
+			}
+			return;
+		}
 		if(username.getText().isBlank()||password.getText().isBlank()){
 
 			Text title =new Text( "Alert");

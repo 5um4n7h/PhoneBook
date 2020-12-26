@@ -54,7 +54,7 @@
                         </Label>
 
                   </VBox>
-         <JFXButton fx:id="ChangeLogin" buttonType="RAISED" layoutX="407.0" layoutY="477.0" onAction="#OnChangeLoginClick" prefHeight="38.0" prefWidth="191.0" style="-fx-background-color: #69FF81;" text="Login as Admin">
+         <JFXButton fx:id="ChangeLogin" buttonType="RAISED" layoutX="305.0" layoutY="477.0" onAction="#OnChangeLoginClick" prefHeight="38.0" prefWidth="191.0" style="-fx-background-color: #69FF81;" text="Login as Admin">
             <font>
                <Font name="System Bold" size="16.0" />
             </font>
@@ -65,6 +65,11 @@
                            <Font name="System Bold" size="40.0" />
                         </font>
                      </Label>
+         <JFXButton fx:id="UserCreateButton" buttonType="RAISED" layoutX="517.0" layoutY="477.0" onAction="#OnChangeLoginClick" prefHeight="38.0" prefWidth="191.0" style="-fx-background-color: #69FF81;" text="Create New User">
+            <font>
+               <Font name="System Bold" size="16.0" />
+            </font>
+         </JFXButton>
 
             </AnchorPane>
 
