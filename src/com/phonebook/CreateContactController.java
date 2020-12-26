@@ -239,13 +239,15 @@ public class CreateContactController {
 				String Instagram = InstagramLinkText.getText();
 
 				try {
-					if (LoginController.isUser) {
-						Sql1 = "update usercontacts set name='" + Name + "',description='" + Desc + "',address='" + Address + "',address_link='" + AddressLink + "' where id='" + ContactId + "'";
+					if (ContactId.contains("u")) {
+
+						Sql1 = "update usercontacts set name='" + Name + "',description=\"" + Desc + "\",address='" + Address + "',address_link='" + AddressLink + "' where id='" + ContactId + "'";
 						Sql2 = "update usercontactdetails set no1='" + Phn1 + "',no2='" + Phn2 + "',email='" + Email + "',website='" + Website + "' where id='" + ContactId + "'";
 						Sql3 = "update usercontactsocial set facebook='" + Facebook + "',instagram='" + Instagram + "' where id='" + ContactId + "'";
 
 					} else {
-						Sql1 = "update defaultcontacts set name='" + Name + "',description='" + Desc + "',address='" + Address + "',address_link='" + AddressLink + "' where id='" + ContactId + "'";
+
+						Sql1 = "update defaultcontacts set name='" + Name + "',description=\"" + Desc + "\",address='" + Address + "',address_link='" + AddressLink + "' where id='" + ContactId + "'";
 						Sql2 = "update defaultcontactdetails set no1='" + Phn1 + "',no2='" + Phn2 + "',email='" + Email + "',website='" + Website + "' where id='" + ContactId + "'";
 						Sql3 = "update defaultcontactsocial set facebook='" + Facebook + "',instagram='" + Instagram + "' where id='" + ContactId + "'";
 
