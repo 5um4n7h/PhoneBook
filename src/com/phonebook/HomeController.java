@@ -15,20 +15,26 @@ public class HomeController {
     @FXML
     private Button RequestsButton;
     @FXML
-    private Button FeedbacksButton;
+    private Button FeedBacksButton;
+    @FXML
+    private Button LogoutButton;
+    @FXML
+    private Button StatsButton;
 
     public static int Cat;
 //    Stage HomeStage = (Stage) DoctorsButton.getScene().getWindow();
 
     public void initialize(){
         if(LoginController.isUser)
-        {
+        {   LogoutButton.setLayoutX(243.0);
+            LogoutButton.setLayoutY(-3.0);
             RequestsButton.setVisible(false);
-            FeedbacksButton.setVisible(false);
+            FeedBacksButton.setVisible(false);
+            StatsButton.setVisible(false);
 
         }else {
             RequestsButton.setVisible(true);
-            FeedbacksButton.setVisible(true);
+            FeedBacksButton.setVisible(true);
         }
         RequestsButton.setOnMouseClicked(mouseEvent -> {
             try {
@@ -47,6 +53,43 @@ public class HomeController {
 
             }
 
+        });
+
+        FeedBacksButton.setOnMouseClicked(mouseEvent -> {
+            try {
+                Stage HomeStage = (Stage) DoctorsButton.getScene().getWindow();
+                Stage LoginStage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("res/layout/FeedbackView.fxml"));
+                LoginStage.setTitle("Phonebook");
+                LoginStage.setScene(new Scene(root));
+                LoginStage.setWidth(HomeStage.getWidth());
+                LoginStage.setHeight(HomeStage.getHeight());
+                LoginStage.setResizable(false);
+                LoginStage.show();
+                HomeStage.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+
+            }
+
+        });
+
+        StatsButton.setOnMouseClicked(mouseEvent -> {
+            try {
+                Stage HomeStage = (Stage) DoctorsButton.getScene().getWindow();
+                Stage LoginStage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("res/layout/Stats.fxml"));
+                LoginStage.setTitle("Phonebook");
+                LoginStage.setScene(new Scene(root));
+                LoginStage.setWidth(HomeStage.getWidth());
+                LoginStage.setHeight(HomeStage.getHeight());
+                LoginStage.setResizable(false);
+                LoginStage.show();
+                HomeStage.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+
+            }
         });
     }
 

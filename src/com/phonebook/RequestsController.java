@@ -70,21 +70,27 @@ public class RequestsController {
 				// itemListView.refresh();
 
 			}
-			ListView.getSelectionModel().select(0);
+
 			try {
+				ListView.getSelectionModel().select(0);
 				ListViewItemSelected();
 			}catch (NullPointerException nullPointerException){
 				nullPointerException.fillInStackTrace();
+				ListView.getSelectionModel().clearSelection();
+				ListView.getItems().clear();
 				Label label = new Label("No pending requests");
 				// label.setFont(Font.font("Segoe UI Semibold",FontWeight.BOLD, 18));
 				items.add(label);
-
-
-				ListView.setItems(items);
 				ListView.setMouseTransparent( true );
 				ListView.setFocusTraversable( false );
+				ListView.setItems(items);
 				ReviewButton.setDisable(true);
-				DeleteButton.setDisable(true);
+				ReviewButton.setDisable(true);
+
+
+
+
+
 
 			}
 
@@ -151,9 +157,10 @@ public class RequestsController {
 			try{
 				sql = "delete from usercontacts where id="+id;
 				Main.statement.executeUpdate(sql);
+				ListView.getItems().clear();
 				initialize();
 			}catch (SQLException sqlException){
-
+					sqlException.printStackTrace();
 			}
 
 
@@ -223,6 +230,14 @@ public class RequestsController {
 
 		} catch (SQLException sqlException) {
 				sqlException.printStackTrace();
+			label = new Label("No pending requests");
+			// label.setFont(Font.font("Segoe UI Semibold",FontWeight.BOLD, 18));
+			ListView.getSelectionModel().clearSelection();
+			ListView.getItems().clear();
+			items.add(label);
+			ListView.setMouseTransparent( true );
+			ListView.setFocusTraversable( false );
+
 		}
 	}
 }

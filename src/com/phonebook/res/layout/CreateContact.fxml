@@ -109,12 +109,12 @@
                               <Font size="14.0" />
                            </font>
                         </JFXTextField>
-                        <JFXButton fx:id="ContactSaveButton" buttonType="RAISED" layoutX="388.0" layoutY="546.0" prefHeight="30.0" prefWidth="121.0" style="-fx-background-color: #69FF81;" text="Create">
+                        <JFXButton fx:id="ContactSaveButton" buttonType="RAISED" layoutX="355.0" layoutY="546.0" prefHeight="37.0" prefWidth="154.0" style="-fx-background-color: #69FF81;" text="Create">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton fx:id="BackButton" buttonType="RAISED" layoutX="527.0" layoutY="546.0" onAction="#BackClicked" prefHeight="30.0" prefWidth="121.0" style="-fx-background-color: #69FF81;" text="Back">
+                        <JFXButton fx:id="BackButton" buttonType="RAISED" layoutX="527.0" layoutY="546.0" onAction="#BackClicked" prefHeight="37.0" prefWidth="154.0" style="-fx-background-color: #69FF81;" text="Back">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>

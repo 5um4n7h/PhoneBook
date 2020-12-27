@@ -74,11 +74,15 @@ public class CreateContactController {
 	public String Instagram;
 
 
-	public int CategoryFlag = HomeController.getCategory();
 
 	// private int newid = ContactsViewController.newid;}
 
 	public void initialize() {
+
+		if(!LoginController.isUser)
+			ContactSaveButton.setText("Create");
+		else
+			ContactSaveButton.setText("Send Request");
 		ComboBox.setVisible(false);
 		CategoryLabel.setVisible(false);
 
@@ -119,7 +123,7 @@ public class CreateContactController {
 
 				if (!LoginController.isUser) {
 
-					ContactSaveButton.setText("Create");
+
 					Sql1 = "INSERT INTO defaultcontacts (id,category,name,description,address,address_link) VALUES("+Id+"," + HomeController.getCategory() + ",'" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "')";
 					Sql2 = "INSERT INTO defaultcontactdetails (id,no1,no2,email,website) VALUES("+Id+",'" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
 					Sql3 = "INSERT INTO defaultcontactsocial (id,facebook,instagram) VALUES("+Id+",'" + Facebook + "','" + Instagram + "')";
@@ -181,7 +185,7 @@ public class CreateContactController {
 					}
 				} else {
 
-					ContactSaveButton.setText("Send Request");
+
 
 
 
