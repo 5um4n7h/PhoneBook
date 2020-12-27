@@ -23,6 +23,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.sql.*;
@@ -67,12 +68,12 @@ public class ContactsViewController extends Application {
     @FXML
     private StackPane stackPane;
     @FXML
-    private Button ReportButton;
+    private Button FeedBackButton;
 
     //private static boolean isUserContact = LoginController.isUser;
 
     public static boolean isCreate;
-    public static String id;
+    public static int id;
     public static String sql;
     public static String ViewSql;
 
@@ -104,10 +105,13 @@ public class ContactsViewController extends Application {
 
 
     public void initialize() {
-        if(!LoginController.isUser)
-            ReportButton.setVisible(false);
+        if(!LoginController.isUser) {
+            FeedBackButton.setDisable(true);
+            CreateContactButton.setText("Create");
+        }
+        CreateContactButton.setText("Request to Create");
         System.out.println("Init called");
-        ViewSql = "call getAllContacts("+HomeController.Cat+")";
+        ViewSql = "call getContacts("+HomeController.Cat+",'default')";
         items = FXCollections.observableArrayList();
         switch (HomeController.getCategory()) {
             case 0: {
@@ -207,52 +211,29 @@ public class ContactsViewController extends Application {
          */
 
 
-        ReportButton.setOnMouseClicked(mouseEvent -> {
-            final Stage dialog = new Stage();
-            dialog.setTitle("Confirmation");
-            Button yes = new Button("Yes");
-            Button no = new Button("No");
+        FeedBackButton.setOnMouseClicked(mouseEvent -> {
 
-            Label displayLabel = new Label("What do you want to do ?");
-            displayLabel.setFont(Font.font(null, FontWeight.BOLD, 14));
+            Stage currentStage = (Stage) ContactDeleteButton.getScene().getWindow();
 
-            dialog.initModality(Modality.NONE);
-            dialog.initOwner((Stage) ReportButton.getScene().getWindow());
+            try {
+                Stage newStage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("res/layout/Feedback.fxml"));
+                newStage.setTitle("Phonebook");
+                newStage.setScene(new Scene(root));
+                newStage.initStyle(StageStyle.UNDECORATED);
+              //  newStage.initModality(Modality.WINDOW_MODAL);
+                newStage.initOwner(currentStage);
+                newStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
+                    if (! isNowFocused) {
+                        newStage.hide();
+                    }
+                });
 
-            HBox dialogHbox = new HBox(20);
-            dialogHbox.setAlignment(Pos.CENTER);
+                newStage.show();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
 
-            VBox dialogVbox1 = new VBox(20);
-            dialogVbox1.setAlignment(Pos.CENTER_LEFT);
-
-            VBox dialogVbox2 = new VBox(20);
-            dialogVbox2.setAlignment(Pos.CENTER_RIGHT);
-
-            dialogHbox.getChildren().add(displayLabel);
-            dialogVbox1.getChildren().add(yes);
-            dialogVbox2.getChildren().add(no);
-
-            yes.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                    new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent e) {
-                            // inside here you can use the minimize or close the previous stage//
-                            dialog.close();
-                        }
-                    });
-            no.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                    new EventHandler<MouseEvent>() {
-                        @Override
-                        public void handle(MouseEvent e) {
-                            dialog.close();
-                        }
-                    });
-
-            dialogHbox.getChildren().addAll(dialogVbox1, dialogVbox2);
-            Scene dialogScene = new Scene(dialogHbox, 500, 40);
-            dialogScene.getStylesheets().add("//style sheet of your choice");
-            dialog.setScene(dialogScene);
-            dialog.show();
 
 
         });
@@ -317,12 +298,8 @@ public class ContactsViewController extends Application {
                     dialog.close();
 
                     try{
-                        if(id.contains("u")){
-                            sql = "DELETE FROM usercontacts WHERE id='"+id+"'";
-                        }else
-                        {
+
                             sql = "DELETE FROM defaultcontacts WHERE id='"+id+"'";
-                        }
                         Main.statement.executeUpdate(sql);
                         itemListView.refresh();
                         DisplayContent(ViewSql);
@@ -534,7 +511,7 @@ public class ContactsViewController extends Application {
             String sql = "SELECT * FROM allcontacts WHERE name='" + s + "'";
             ResultSet rs = Main.statement.executeQuery(sql);
             while (rs.next()) {
-                id = rs.getString("id");
+                id = rs.getInt("id");
                 Name = rs.getString("name");
                 Desc = rs.getString("description");
                 Address = rs.getString("address");
@@ -547,7 +524,7 @@ public class ContactsViewController extends Application {
                 InstagramLink = rs.getString("instagram");
 
 
-                if (LoginController.isUser && id.contains("d")) {
+                if (LoginController.isUser) {
                     // System.out.println("If is true");
                     ContactDeleteButton.setVisible(false);
                     ContactEditButton.setVisible(false);

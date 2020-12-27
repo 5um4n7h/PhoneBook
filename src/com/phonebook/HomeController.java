@@ -28,8 +28,26 @@ public class HomeController {
 
         }else {
             RequestsButton.setVisible(true);
-            FeedbacksButton.setVisible(false);
+            FeedbacksButton.setVisible(true);
         }
+        RequestsButton.setOnMouseClicked(mouseEvent -> {
+            try {
+                Stage HomeStage = (Stage) DoctorsButton.getScene().getWindow();
+                Stage LoginStage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("res/layout/Requests.fxml"));
+                LoginStage.setTitle("Phonebook");
+                LoginStage.setScene(new Scene(root));
+                LoginStage.setWidth(HomeStage.getWidth());
+                LoginStage.setHeight(HomeStage.getHeight());
+                LoginStage.setResizable(false);
+                LoginStage.show();
+                HomeStage.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+
+            }
+
+        });
     }
 
     //to get Category No in other classes

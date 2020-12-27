@@ -10,21 +10,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
 
 public class CreateContactController {
 
 
-	public String Name;
+
 	@FXML
 	private Button ContactSaveButton;
 	@FXML
@@ -51,6 +50,10 @@ public class CreateContactController {
 	private StackPane stackPane;
 	@FXML
 	private HBox hbox;
+	@FXML
+	private ComboBox ComboBox;
+	@FXML
+	private Label CategoryLabel;
 
 
 	public int Id;
@@ -60,92 +63,283 @@ public class CreateContactController {
 	public String Sql3;
 	public String Phn1;
 	public String Phn2;
+	public String page;
+	public String Name;
+	public String Desc;
+	public String Address;
+	public String AddressLink;
+	public String Email;
+	public String Website;
+	public String Facebook;
+	public String Instagram;
 
 
 	public int CategoryFlag = HomeController.getCategory();
 
-	// private int newid = ContactsViewController.newid;
-	public CreateContactController() throws SQLException {
-	}
+	// private int newid = ContactsViewController.newid;}
 
-	public void initialize() throws FileNotFoundException {
-		//FileInputStream input = new FileInputStream("C:\\Users\\Sumanth Hegde\\IdeaProjects\\PhoneBook\\src\\com\\phonebook\\CreateContact.png");
-
-		// create a image
-		//Image image = new Image(input);
-
-		// create a background image
-		//BackgroundImage backgroundimage = new BackgroundImage(image,
-				 // BackgroundRepeat.NO_REPEAT,
-				 // BackgroundRepeat.NO_REPEAT,
-				 // BackgroundPosition.DEFAULT,
-				 // BackgroundSize.DEFAULT);
-
-		// create Background
-		//Background background = new Background(backgroundimage);
-
-		// set background
-	//	hbox.setBackground(background);
+	public void initialize() {
+		ComboBox.setVisible(false);
+		CategoryLabel.setVisible(false);
 
 
 		if (ContactsViewController.isCreate) {
 
 			ContactSaveButton.setOnMouseClicked(event -> {
 
-				try {
-
-					String Sql = "select * from id";
-					ResultSet rs = Main.statement.executeQuery(Sql);
-					while (rs.next()) {
-						Id = (rs.getInt("id"));
-						System.out.println(Id);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-
-				if (LoginController.isUser) {
-					ContactID = "u" + Id;
-				} else {
-					ContactID = "d" + Id;
-				}
-
-				String Name = NameText.getText();
-				String Desc = DesriptionText.getText();
-				String Address = AddressText.getText();
-				String AddressLink = AddressLinkText.getText();
+				Name = NameText.getText();
+				Desc = DesriptionText.getText();
+				Address = AddressText.getText();
+				AddressLink = AddressLinkText.getText();
 
 
 				Phn1 = Phn1Text.getText();
 				Phn2 = Phn2Text.getText();
-				String Email = EmailText.getText();
-				String Website = WebsiteText.getText();
-				String Facebook = FacebookLinkText.getText();
-				String Instagram = InstagramLinkText.getText();
+				Email = EmailText.getText();
+				Website = WebsiteText.getText();
+				Facebook = FacebookLinkText.getText();
+				Instagram = InstagramLinkText.getText();
+
 
 				try {
+					String sql = "select id from statistics";
+					ResultSet resultSet = Main.statement.executeQuery(sql);
+					while (resultSet.next()){
+						Id = resultSet.getInt("id");
 
-					if (LoginController.isUser) {
-						Sql1 = "INSERT INTO usercontacts  VALUES('" + ContactID + "','" + HomeController.getCategory() + "','" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "')";
-						Sql2 = "INSERT INTO usercontactdetails VALUES('" + ContactID + "','" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
-						Sql3 = "INSERT INTO usercontactsocial VALUES('" + ContactID + "','" + Facebook + "','" + Instagram + "')";
-					} else {
-						Sql1 = "INSERT INTO defaultcontacts  VALUES('" + ContactID + "','" + HomeController.getCategory() + "','" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "')";
-						Sql2 = "INSERT INTO defaultcontactdetails VALUES('" + ContactID + "','" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
-						Sql3 = "INSERT INTO defaultcontactsocial VALUES('" + ContactID + "','" + Facebook + "','" + Instagram + "')";
 					}
 
+
+				}catch(SQLException sqlDataException){
+					sqlDataException.printStackTrace();
+
+				}
+
+
+
+				if (!LoginController.isUser) {
+
+					ContactSaveButton.setText("Create");
+					Sql1 = "INSERT INTO defaultcontacts (id,category,name,description,address,address_link) VALUES("+Id+"," + HomeController.getCategory() + ",'" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "')";
+					Sql2 = "INSERT INTO defaultcontactdetails (id,no1,no2,email,website) VALUES("+Id+",'" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
+					Sql3 = "INSERT INTO defaultcontactsocial (id,facebook,instagram) VALUES("+Id+",'" + Facebook + "','" + Instagram + "')";
+					try {
+						Main.statement.executeUpdate(Sql1);
+						Main.statement.executeUpdate(Sql2);
+						Main.statement.executeUpdate(Sql3);
+
+						Text title = new Text("Alert");
+						title.setStyle("-fx-font-size:20");
+						Text text = new Text("Contact Created Successfully");
+						text.setStyle("-fx-font-size:14");
+						JFXDialogLayout dialogContent = new JFXDialogLayout();
+						dialogContent.setHeading(title);
+						dialogContent.setBody(text);
+						JFXButton close = new JFXButton("Close");
+						close.setButtonType(JFXButton.ButtonType.RAISED);
+						close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+						dialogContent.setActions(close);
+						JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+						close.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent __) {
+								dialog.close();
+								ContactsViewController.isCreate = false;
+								BackClicked();
+
+
+							}
+						});
+						dialog.show();
+
+
+					} catch (SQLException sqlException) {
+						sqlException.printStackTrace();
+
+						Text title = new Text("Alert");
+						title.setStyle("-fx-font-size:20");
+						Text text = new Text("Failed !");
+						text.setStyle("-fx-font-size:14");
+						JFXDialogLayout dialogContent = new JFXDialogLayout();
+						dialogContent.setHeading(title);
+						dialogContent.setBody(text);
+						JFXButton close = new JFXButton("Close");
+						close.setButtonType(JFXButton.ButtonType.RAISED);
+						close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+						dialogContent.setActions(close);
+						JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+						close.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent __) {
+								dialog.close();
+
+
+							}
+						});
+						dialog.show();
+
+					}
+				} else {
+
+					ContactSaveButton.setText("Send Request");
+
+
+
+
+					Sql1 = "INSERT INTO usercontacts (id,category,name,description,address,address_link,username) VALUES("+Id+"," + HomeController.getCategory() + ",'" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "','user')";
+					Sql2 = "INSERT INTO usercontactdetails (id,no1,no2,email,website) VALUES("+Id+",'" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
+					Sql3 = "INSERT INTO usercontactsocial (id,facebook,instagram) VALUES("+Id+",'" + Facebook + "','" + Instagram + "')";
+						try {
+
+
+							Main.statement.executeUpdate(Sql1);
+							Main.statement.executeUpdate(Sql2);
+							Main.statement.executeUpdate(Sql3);
+
+							Text title = new Text("Alert");
+							title.setStyle("-fx-font-size:20");
+							Text text = new Text("Request  Successful");
+							text.setStyle("-fx-font-size:14");
+							JFXDialogLayout dialogContent = new JFXDialogLayout();
+							dialogContent.setHeading(title);
+							dialogContent.setBody(text);
+							JFXButton close = new JFXButton("Close");
+							close.setButtonType(JFXButton.ButtonType.RAISED);
+							close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+							dialogContent.setActions(close);
+							JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+							close.setOnAction(new EventHandler<ActionEvent>() {
+								@Override
+								public void handle(ActionEvent __) {
+									dialog.close();
+									BackClicked();
+									ContactsViewController.isCreate = false;
+
+
+								}
+							});
+							dialog.show();
+
+
+						} catch (SQLException sqlException) {
+							sqlException.printStackTrace();
+
+							Text title = new Text("Alert");
+							title.setStyle("-fx-font-size:20");
+							Text text = new Text("Failed!");
+							text.setStyle("-fx-font-size:14");
+							JFXDialogLayout dialogContent = new JFXDialogLayout();
+							dialogContent.setHeading(title);
+							dialogContent.setBody(text);
+							JFXButton close = new JFXButton("Close");
+							close.setButtonType(JFXButton.ButtonType.RAISED);
+							close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+							dialogContent.setActions(close);
+							JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+							close.setOnAction(new EventHandler<ActionEvent>() {
+								@Override
+								public void handle(ActionEvent __) {
+									dialog.close();
+
+
+								}
+							});
+							dialog.show();
+
+
+						}
+
+
+
+
+				}
+			});
+
+
+
+		}
+
+		else if(RequestsController.isReview){
+
+
+			System.out.println("called!");
+			ComboBox.setVisible(true);
+			CategoryLabel.setVisible(true);
+
+
+			ComboBox.getItems().addAll("Doctors", "Electricians", "Plumbers",
+					  "Carpenters", "Lawyers","Shops","Educational Institutions","Banks" );
+
+         ComboBox.getSelectionModel().select(RequestsController.category);
+			NameText.setText(RequestsController.Name);
+			DesriptionText.setText(RequestsController.Desc);
+			AddressText.setText(RequestsController.Address);
+			AddressLinkText.setText(RequestsController.AddressLink);
+			Phn1Text.setText(RequestsController.Phn1);
+			Phn2Text.setText(RequestsController.Phn2);
+			EmailText.setText(RequestsController.EmailLink);
+			WebsiteText.setText(RequestsController.Website);
+			FacebookLinkText.setText(RequestsController.FacebookLink);
+			InstagramLinkText.setText(RequestsController.InstagramLink);
+
+			ContactSaveButton.setText("Create");
+
+			ContactSaveButton.setOnMouseClicked(mouseEvent -> {
+
+				Name = NameText.getText();
+				Desc = DesriptionText.getText();
+				Address = AddressText.getText();
+				AddressLink = AddressLinkText.getText();
+
+
+				Phn1 = Phn1Text.getText();
+				Phn2 = Phn2Text.getText();
+				Email = EmailText.getText();
+				Website = WebsiteText.getText();
+				Facebook = FacebookLinkText.getText();
+				Instagram = InstagramLinkText.getText();
+
+
+
+
+
+
+
+				try {
+					String sql = "select id from statistics";
+					ResultSet resultSet = Main.statement.executeQuery(sql);
+					while (resultSet.next()){
+						Id = resultSet.getInt("id");
+
+					}
+
+
+				}catch(SQLException sqlDataException){
+					sqlDataException.printStackTrace();
+
+					}
+
+				System.out.println("Review and save Called");
+				Sql1 = "INSERT INTO defaultcontacts (id,category,name,description,address,address_link) VALUES("+Id+"," + ComboBox.getSelectionModel().getSelectedIndex()+ ",'" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "')";
+				Sql2 = "INSERT INTO defaultcontactdetails (id,no1,no2,email,website) VALUES("+Id+",'" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
+				Sql3 = "INSERT INTO defaultcontactsocial (id,facebook,instagram) VALUES("+Id+",'" + Facebook + "','" + Instagram + "')";
+				try {
 					Main.statement.executeUpdate(Sql1);
 					Main.statement.executeUpdate(Sql2);
 					Main.statement.executeUpdate(Sql3);
 
-				} catch (Exception e) {
-					e.printStackTrace();
+
+					try{
+						String sql = "delete from usercontacts where id="+RequestsController.id;
+						Main.statement.executeUpdate(sql);
+						initialize();
+					}catch (SQLException sqlException){
+
+					}
 
 					Text title = new Text("Alert");
 					title.setStyle("-fx-font-size:20");
-					Text text = new Text("Contact Creation Failed");
+					Text text = new Text("Contact Created Successfully");
 					text.setStyle("-fx-font-size:14");
 					JFXDialogLayout dialogContent = new JFXDialogLayout();
 					dialogContent.setHeading(title);
@@ -155,26 +349,11 @@ public class CreateContactController {
 					close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
 					dialogContent.setActions(close);
 					JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
-
 					close.setOnAction(new EventHandler<ActionEvent>() {
 						@Override
 						public void handle(ActionEvent __) {
 							dialog.close();
-							Stage currentStage = (Stage) NameText.getScene().getWindow();
-
-							try {
-								Stage newStage = new Stage();
-								Parent root = FXMLLoader.load(getClass().getResource("res/layout/CreateContact.fxml"));
-								newStage.setTitle("Phonebook");
-								newStage.setScene(new Scene(root));
-								newStage.setWidth(currentStage.getWidth());
-								newStage.setHeight(currentStage.getHeight());
-								newStage.setResizable(false);
-								newStage.show();
-								currentStage.close();
-							} catch (Exception ex) {
-								ex.printStackTrace();
-							}
+							BackClicked();
 
 
 						}
@@ -182,34 +361,54 @@ public class CreateContactController {
 					dialog.show();
 
 
+				} catch (SQLException sqlException) {
+					sqlException.printStackTrace();
+
+					Text title = new Text("Alert");
+					title.setStyle("-fx-font-size:20");
+					Text text = new Text("Failed !");
+					text.setStyle("-fx-font-size:14");
+					JFXDialogLayout dialogContent = new JFXDialogLayout();
+					dialogContent.setHeading(title);
+					dialogContent.setBody(text);
+					JFXButton close = new JFXButton("Close");
+					close.setButtonType(JFXButton.ButtonType.RAISED);
+					close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+					dialogContent.setActions(close);
+					JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+					close.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent __) {
+							dialog.close();
+
+
+
+						}
+					});
+					dialog.show();
+
 				}
 
 
-				Text title = new Text("Alert");
-				title.setStyle("-fx-font-size:20");
-				Text text = new Text("Contact Added Successfully");
-				text.setStyle("-fx-font-size:14");
-				JFXDialogLayout dialogContent = new JFXDialogLayout();
-				dialogContent.setHeading(title);
-				dialogContent.setBody(text);
-				JFXButton close = new JFXButton("Close");
-				close.setButtonType(JFXButton.ButtonType.RAISED);
-				close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
-				dialogContent.setActions(close);
-				JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
-				close.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent __) {
-						dialog.close();
-					   BackClicked();
 
 
-					}
-				});
-				dialog.show();
+
 
 
 			});
+
+
+
+
+
+
+
+
+
+
+
+
+
 		} else {
 
 			ContactSaveButton.setText("Update");
@@ -226,7 +425,7 @@ public class CreateContactController {
 			InstagramLinkText.setText(ContactsViewController.InstagramLink);
 
 			ContactSaveButton.setOnMouseClicked(mouseEvent -> {
-				String ContactId = ContactsViewController.id;
+				String ContactId = String.valueOf(ContactsViewController.id);
 				String Name = NameText.getText();
 				String Desc = DesriptionText.getText();
 				String Address = AddressText.getText();
@@ -239,55 +438,77 @@ public class CreateContactController {
 				String Instagram = InstagramLinkText.getText();
 
 				try {
-					if (ContactId.contains("u")) {
 
-						Sql1 = "update usercontacts set name='" + Name + "',description=\"" + Desc + "\",address='" + Address + "',address_link='" + AddressLink + "' where id='" + ContactId + "'";
-						Sql2 = "update usercontactdetails set no1='" + Phn1 + "',no2='" + Phn2 + "',email='" + Email + "',website='" + Website + "' where id='" + ContactId + "'";
-						Sql3 = "update usercontactsocial set facebook='" + Facebook + "',instagram='" + Instagram + "' where id='" + ContactId + "'";
-
-					} else {
 
 						Sql1 = "update defaultcontacts set name='" + Name + "',description=\"" + Desc + "\",address='" + Address + "',address_link='" + AddressLink + "' where id='" + ContactId + "'";
 						Sql2 = "update defaultcontactdetails set no1='" + Phn1 + "',no2='" + Phn2 + "',email='" + Email + "',website='" + Website + "' where id='" + ContactId + "'";
 						Sql3 = "update defaultcontactsocial set facebook='" + Facebook + "',instagram='" + Instagram + "' where id='" + ContactId + "'";
 
-					}
+
 					Main.statement.executeUpdate(Sql1);
 					Main.statement.executeUpdate(Sql2);
 					Main.statement.executeUpdate(Sql3);
+
+					Text title = new Text("Alert");
+					title.setStyle("-fx-font-size:20");
+					Text text = new Text("Contact Updated Successfully");
+					text.setStyle("-fx-font-size:14");
+					JFXDialogLayout dialogContent = new JFXDialogLayout();
+					dialogContent.setHeading(title);
+					dialogContent.setBody(text);
+					JFXButton close = new JFXButton("Close");
+					close.setButtonType(JFXButton.ButtonType.RAISED);
+					close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+					dialogContent.setActions(close);
+					JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+
+					close.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent __) {
+							dialog.close();
+							BackClicked();
+
+
+						}
+
+					});
+					dialog.show();
+
 				} catch (Exception e) {
 					e.printStackTrace();
+					Text title = new Text("Alert");
+					title.setStyle("-fx-font-size:20");
+					Text text = new Text("Contact Update Failed !");
+					text.setStyle("-fx-font-size:14");
+					JFXDialogLayout dialogContent = new JFXDialogLayout();
+					dialogContent.setHeading(title);
+					dialogContent.setBody(text);
+					JFXButton close = new JFXButton("Close");
+					close.setButtonType(JFXButton.ButtonType.RAISED);
+					close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+					dialogContent.setActions(close);
+					JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+
+					close.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent __) {
+							dialog.close();
+
+
+
+						}
+
+					});
+					dialog.show();
+
 				}
 
-				Stage currentStage = (Stage) NameText.getScene().getWindow();
 
 
 
 
-				Text title = new Text("Alert");
-				title.setStyle("-fx-font-size:20");
-				Text text = new Text("Contact Updated Successfully");
-				text.setStyle("-fx-font-size:14");
-				JFXDialogLayout dialogContent = new JFXDialogLayout();
-				dialogContent.setHeading(title);
-				dialogContent.setBody(text);
-				JFXButton close = new JFXButton("Close");
-				close.setButtonType(JFXButton.ButtonType.RAISED);
-				close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
-				dialogContent.setActions(close);
-				JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
-
-				close.setOnAction(new EventHandler<ActionEvent>() {
-					@Override
-					public void handle(ActionEvent __) {
-						dialog.close();
-						BackClicked();
 
 
-					}
-
-				});
-				dialog.show();
 
 
 
@@ -299,10 +520,16 @@ public class CreateContactController {
 		}
 
 		public void BackClicked () {
+		if(RequestsController.isReview){
+			page= "res/layout/Requests.fxml";
+			RequestsController.isReview = false;
+		}else
+			page ="res/layout/ContactsView.fxml";
+
 			try {
 				Stage CreateContactStage = (Stage) ContactSaveButton.getScene().getWindow();
 				Stage ContactViewStage = new Stage();
-				Parent root = FXMLLoader.load(getClass().getResource("res/layout/ContactsView.fxml"));
+				Parent root = FXMLLoader.load(getClass().getResource(page));
 				ContactViewStage.setTitle("Phonebook");
 				ContactViewStage.setScene(new Scene(root));
 				ContactViewStage.setWidth(CreateContactStage.getWidth());
