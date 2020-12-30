@@ -87,9 +87,24 @@ public class CreateContactController {
 		CategoryLabel.setVisible(false);
 
 
+
 		if (ContactsViewController.isCreate) {
 
+
+			/*
+			NameText.setText("");
+			Phn1Text.setText("");
+			Phn2Text.setText("");
+			EmailText.setText("");
+			WebsiteText.setText("");
+
+			 */
+
 			ContactSaveButton.setOnMouseClicked(event -> {
+
+
+				if (FormValidation()==1)
+				{
 
 				Name = NameText.getText();
 				Desc = DesriptionText.getText();
@@ -186,76 +201,73 @@ public class CreateContactController {
 				} else {
 
 
+					Sql1 = "INSERT INTO usercontacts (id,category,name,description,address,address_link,username) VALUES(" + Id + "," + HomeController.getCategory() + ",'" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "','user')";
+					Sql2 = "INSERT INTO usercontactdetails (id,no1,no2,email,website) VALUES(" + Id + ",'" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
+					Sql3 = "INSERT INTO usercontactsocial (id,facebook,instagram) VALUES(" + Id + ",'" + Facebook + "','" + Instagram + "')";
+					try {
 
 
+						Main.statement.executeUpdate(Sql1);
+						Main.statement.executeUpdate(Sql2);
+						Main.statement.executeUpdate(Sql3);
+
+						Text title = new Text("Alert");
+						title.setStyle("-fx-font-size:20");
+						Text text = new Text("Request  Successful");
+						text.setStyle("-fx-font-size:14");
+						JFXDialogLayout dialogContent = new JFXDialogLayout();
+						dialogContent.setHeading(title);
+						dialogContent.setBody(text);
+						JFXButton close = new JFXButton("Close");
+						close.setButtonType(JFXButton.ButtonType.RAISED);
+						close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+						dialogContent.setActions(close);
+						JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+						close.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent __) {
+								dialog.close();
+								BackClicked();
+								ContactsViewController.isCreate = false;
 
 
-					Sql1 = "INSERT INTO usercontacts (id,category,name,description,address,address_link,username) VALUES("+Id+"," + HomeController.getCategory() + ",'" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "','user')";
-					Sql2 = "INSERT INTO usercontactdetails (id,no1,no2,email,website) VALUES("+Id+",'" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
-					Sql3 = "INSERT INTO usercontactsocial (id,facebook,instagram) VALUES("+Id+",'" + Facebook + "','" + Instagram + "')";
-						try {
+							}
+						});
+						dialog.show();
 
 
-							Main.statement.executeUpdate(Sql1);
-							Main.statement.executeUpdate(Sql2);
-							Main.statement.executeUpdate(Sql3);
+					} catch (SQLException sqlException) {
+						sqlException.printStackTrace();
 
-							Text title = new Text("Alert");
-							title.setStyle("-fx-font-size:20");
-							Text text = new Text("Request  Successful");
-							text.setStyle("-fx-font-size:14");
-							JFXDialogLayout dialogContent = new JFXDialogLayout();
-							dialogContent.setHeading(title);
-							dialogContent.setBody(text);
-							JFXButton close = new JFXButton("Close");
-							close.setButtonType(JFXButton.ButtonType.RAISED);
-							close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
-							dialogContent.setActions(close);
-							JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
-							close.setOnAction(new EventHandler<ActionEvent>() {
-								@Override
-								public void handle(ActionEvent __) {
-									dialog.close();
-									BackClicked();
-									ContactsViewController.isCreate = false;
+						Text title = new Text("Alert");
+						title.setStyle("-fx-font-size:20");
+						Text text = new Text("Failed!");
+						text.setStyle("-fx-font-size:14");
+						JFXDialogLayout dialogContent = new JFXDialogLayout();
+						dialogContent.setHeading(title);
+						dialogContent.setBody(text);
+						JFXButton close = new JFXButton("Close");
+						close.setButtonType(JFXButton.ButtonType.RAISED);
+						close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+						dialogContent.setActions(close);
+						JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+						close.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent __) {
+								dialog.close();
 
 
-								}
-							});
-							dialog.show();
+							}
+						});
+						dialog.show();
 
 
-						} catch (SQLException sqlException) {
-							sqlException.printStackTrace();
-
-							Text title = new Text("Alert");
-							title.setStyle("-fx-font-size:20");
-							Text text = new Text("Failed!");
-							text.setStyle("-fx-font-size:14");
-							JFXDialogLayout dialogContent = new JFXDialogLayout();
-							dialogContent.setHeading(title);
-							dialogContent.setBody(text);
-							JFXButton close = new JFXButton("Close");
-							close.setButtonType(JFXButton.ButtonType.RAISED);
-							close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
-							dialogContent.setActions(close);
-							JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
-							close.setOnAction(new EventHandler<ActionEvent>() {
-								@Override
-								public void handle(ActionEvent __) {
-									dialog.close();
+					}
 
 
-								}
-							});
-							dialog.show();
-
-
-						}
-
-
-
-
+				}
+				}else {
+					System.out.println("Failed");
 				}
 			});
 
@@ -290,115 +302,132 @@ public class CreateContactController {
 
 			ContactSaveButton.setOnMouseClicked(mouseEvent -> {
 
-				Name = NameText.getText();
-				Desc = DesriptionText.getText();
-				Address = AddressText.getText();
-				AddressLink = AddressLinkText.getText();
+				if(FormValidation()==1) {
+
+					Name = NameText.getText();
+					Desc = DesriptionText.getText();
+					Address = AddressText.getText();
+					AddressLink = AddressLinkText.getText();
 
 
-				Phn1 = Phn1Text.getText();
-				Phn2 = Phn2Text.getText();
-				Email = EmailText.getText();
-				Website = WebsiteText.getText();
-				Facebook = FacebookLinkText.getText();
-				Instagram = InstagramLinkText.getText();
+					Phn1 = Phn1Text.getText();
+					Phn2 = Phn2Text.getText();
+					Email = EmailText.getText();
+					Website = WebsiteText.getText();
+					Facebook = FacebookLinkText.getText();
+					Instagram = InstagramLinkText.getText();
 
 
-
-
-
-
-
-				try {
-					String sql = "select id from statistics";
-					ResultSet resultSet = Main.statement.executeQuery(sql);
-					while (resultSet.next()){
-						Id = resultSet.getInt("id");
-
-					}
-
-
-				}catch(SQLException sqlDataException){
-					sqlDataException.printStackTrace();
-
-					}
-
-				System.out.println("Review and save Called");
-				Sql1 = "INSERT INTO defaultcontacts (id,category,name,description,address,address_link) VALUES("+Id+"," + ComboBox.getSelectionModel().getSelectedIndex()+ ",'" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "')";
-				Sql2 = "INSERT INTO defaultcontactdetails (id,no1,no2,email,website) VALUES("+Id+",'" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
-				Sql3 = "INSERT INTO defaultcontactsocial (id,facebook,instagram) VALUES("+Id+",'" + Facebook + "','" + Instagram + "')";
-				try {
-					Main.statement.executeUpdate(Sql1);
-					Main.statement.executeUpdate(Sql2);
-					Main.statement.executeUpdate(Sql3);
-
-
-					try{
-						String sql = "delete from usercontacts where id="+RequestsController.id;
-						Main.statement.executeUpdate(sql);
-						initialize();
-					}catch (SQLException sqlException){
-
-					}
-
-					Text title = new Text("Alert");
-					title.setStyle("-fx-font-size:20");
-					Text text = new Text("Contact Created Successfully");
-					text.setStyle("-fx-font-size:14");
-					JFXDialogLayout dialogContent = new JFXDialogLayout();
-					dialogContent.setHeading(title);
-					dialogContent.setBody(text);
-					JFXButton close = new JFXButton("Close");
-					close.setButtonType(JFXButton.ButtonType.RAISED);
-					close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
-					dialogContent.setActions(close);
-					JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
-					close.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent __) {
-							dialog.close();
-							BackClicked();
-
+					try {
+						String sql = "select id from statistics";
+						ResultSet resultSet = Main.statement.executeQuery(sql);
+						while (resultSet.next()) {
+							Id = resultSet.getInt("id");
 
 						}
-					});
-					dialog.show();
 
 
-				} catch (SQLException sqlException) {
-					sqlException.printStackTrace();
+					} catch (SQLException sqlDataException) {
+						sqlDataException.printStackTrace();
 
-					Text title = new Text("Alert");
-					title.setStyle("-fx-font-size:20");
-					Text text = new Text("Failed !");
-					text.setStyle("-fx-font-size:14");
-					JFXDialogLayout dialogContent = new JFXDialogLayout();
-					dialogContent.setHeading(title);
-					dialogContent.setBody(text);
-					JFXButton close = new JFXButton("Close");
-					close.setButtonType(JFXButton.ButtonType.RAISED);
-					close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
-					dialogContent.setActions(close);
-					JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
-					close.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent __) {
-							dialog.close();
+					}
+
+					System.out.println("Review and save Called");
+					Sql1 = "INSERT INTO defaultcontacts (id,category,name,description,address,address_link) VALUES(" + Id + "," + ComboBox.getSelectionModel().getSelectedIndex() + ",'" + Name + "','" + Desc + "','" + Address + "','" + AddressLink + "')";
+					Sql2 = "INSERT INTO defaultcontactdetails (id,no1,no2,email,website) VALUES(" + Id + ",'" + Phn1 + "','" + Phn2 + "','" + Email + "','" + Website + "')";
+					Sql3 = "INSERT INTO defaultcontactsocial (id,facebook,instagram) VALUES(" + Id + ",'" + Facebook + "','" + Instagram + "')";
+					try {
+						Main.statement.executeUpdate(Sql1);
+						Main.statement.executeUpdate(Sql2);
+						Main.statement.executeUpdate(Sql3);
 
 
+						try {
+							String sql = "delete from usercontacts where id=" + RequestsController.id;
+							Main.statement.executeUpdate(sql);
+							initialize();
+						} catch (SQLException sqlException) {
 
 						}
-					});
-					dialog.show();
+
+						Text title = new Text("Alert");
+						title.setStyle("-fx-font-size:20");
+						Text text = new Text("Contact Created Successfully");
+						text.setStyle("-fx-font-size:14");
+						JFXDialogLayout dialogContent = new JFXDialogLayout();
+						dialogContent.setHeading(title);
+						dialogContent.setBody(text);
+						JFXButton close = new JFXButton("Close");
+						close.setButtonType(JFXButton.ButtonType.RAISED);
+						close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+						dialogContent.setActions(close);
+						JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+						close.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent __) {
+								dialog.close();
+
+								int no = 0;
+								try{
+									String sql = "select totalreqacc from statistics";
+									ResultSet resultSet = Main.statement.executeQuery(sql);
+									while (resultSet.next()){
+										no = resultSet.getInt("totalreqacc");
+									}
+									no = no +1;
+									sql = "update statistics set totalreqacc="+no;
+									Main.statement.executeUpdate(sql);
+								}catch (SQLException sqlException){
+									sqlException.printStackTrace();
+
+								}
+
+
+
+
+
+
+
+								BackClicked();
+
+
+							}
+						});
+						dialog.show();
+
+
+					} catch (SQLException sqlException) {
+						sqlException.printStackTrace();
+
+						Text title = new Text("Alert");
+						title.setStyle("-fx-font-size:20");
+						Text text = new Text("Failed !");
+						text.setStyle("-fx-font-size:14");
+						JFXDialogLayout dialogContent = new JFXDialogLayout();
+						dialogContent.setHeading(title);
+						dialogContent.setBody(text);
+						JFXButton close = new JFXButton("Close");
+						close.setButtonType(JFXButton.ButtonType.RAISED);
+						close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+						dialogContent.setActions(close);
+						JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+						close.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent __) {
+								dialog.close();
+
+
+							}
+						});
+						dialog.show();
+
+					}
+
+
+				}else {
+					System.out.println("Failed");
 
 				}
-
-
-
-
-
-
-
 			});
 
 
@@ -429,19 +458,21 @@ public class CreateContactController {
 			InstagramLinkText.setText(ContactsViewController.InstagramLink);
 
 			ContactSaveButton.setOnMouseClicked(mouseEvent -> {
-				String ContactId = String.valueOf(ContactsViewController.id);
-				String Name = NameText.getText();
-				String Desc = DesriptionText.getText();
-				String Address = AddressText.getText();
-				String AddressLink = AddressLinkText.getText();
-				String Phn1 = Phn1Text.getText();
-				String Phn2 = Phn2Text.getText();
-				String Email = EmailText.getText();
-				String Website = WebsiteText.getText();
-				String Facebook = FacebookLinkText.getText();
-				String Instagram = InstagramLinkText.getText();
 
-				try {
+				if(FormValidation()==1) {
+					String ContactId = String.valueOf(ContactsViewController.id);
+					String Name = NameText.getText();
+					String Desc = DesriptionText.getText();
+					String Address = AddressText.getText();
+					String AddressLink = AddressLinkText.getText();
+					String Phn1 = Phn1Text.getText();
+					String Phn2 = Phn2Text.getText();
+					String Email = EmailText.getText();
+					String Website = WebsiteText.getText();
+					String Facebook = FacebookLinkText.getText();
+					String Instagram = InstagramLinkText.getText();
+
+					try {
 
 
 						Sql1 = "update defaultcontacts set name='" + Name + "',description=\"" + Desc + "\",address='" + Address + "',address_link='" + AddressLink + "' where id='" + ContactId + "'";
@@ -449,81 +480,160 @@ public class CreateContactController {
 						Sql3 = "update defaultcontactsocial set facebook='" + Facebook + "',instagram='" + Instagram + "' where id='" + ContactId + "'";
 
 
-					Main.statement.executeUpdate(Sql1);
-					Main.statement.executeUpdate(Sql2);
-					Main.statement.executeUpdate(Sql3);
+						Main.statement.executeUpdate(Sql1);
+						Main.statement.executeUpdate(Sql2);
+						Main.statement.executeUpdate(Sql3);
 
-					Text title = new Text("Alert");
-					title.setStyle("-fx-font-size:20");
-					Text text = new Text("Contact Updated Successfully");
-					text.setStyle("-fx-font-size:14");
-					JFXDialogLayout dialogContent = new JFXDialogLayout();
-					dialogContent.setHeading(title);
-					dialogContent.setBody(text);
-					JFXButton close = new JFXButton("Close");
-					close.setButtonType(JFXButton.ButtonType.RAISED);
-					close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
-					dialogContent.setActions(close);
-					JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+						Text title = new Text("Alert");
+						title.setStyle("-fx-font-size:20");
+						Text text = new Text("Contact Updated Successfully");
+						text.setStyle("-fx-font-size:14");
+						JFXDialogLayout dialogContent = new JFXDialogLayout();
+						dialogContent.setHeading(title);
+						dialogContent.setBody(text);
+						JFXButton close = new JFXButton("Close");
+						close.setButtonType(JFXButton.ButtonType.RAISED);
+						close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+						dialogContent.setActions(close);
+						JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
 
-					close.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent __) {
-							dialog.close();
-							BackClicked();
-
-
-						}
-
-					});
-					dialog.show();
-
-				} catch (Exception e) {
-					e.printStackTrace();
-					Text title = new Text("Alert");
-					title.setStyle("-fx-font-size:20");
-					Text text = new Text("Contact Update Failed !");
-					text.setStyle("-fx-font-size:14");
-					JFXDialogLayout dialogContent = new JFXDialogLayout();
-					dialogContent.setHeading(title);
-					dialogContent.setBody(text);
-					JFXButton close = new JFXButton("Close");
-					close.setButtonType(JFXButton.ButtonType.RAISED);
-					close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
-					dialogContent.setActions(close);
-					JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
-
-					close.setOnAction(new EventHandler<ActionEvent>() {
-						@Override
-						public void handle(ActionEvent __) {
-							dialog.close();
+						close.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent __) {
+								dialog.close();
+								BackClicked();
 
 
+							}
 
-						}
+						});
+						dialog.show();
 
-					});
-					dialog.show();
+					} catch (Exception e) {
+						e.printStackTrace();
+						Text title = new Text("Alert");
+						title.setStyle("-fx-font-size:20");
+						Text text = new Text("Contact Update Failed !");
+						text.setStyle("-fx-font-size:14");
+						JFXDialogLayout dialogContent = new JFXDialogLayout();
+						dialogContent.setHeading(title);
+						dialogContent.setBody(text);
+						JFXButton close = new JFXButton("Close");
+						close.setButtonType(JFXButton.ButtonType.RAISED);
+						close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+						dialogContent.setActions(close);
+						JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
 
+						close.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent __) {
+								dialog.close();
+
+
+							}
+
+						});
+						dialog.show();
+
+					}
+
+
+				}else {
+					System.out.println("Failed");
 				}
-
-
-
-
-
-
-
-
-
-
-
 
 			});
 		}
 
 		}
 
-		public void BackClicked () {
+	private int FormValidation() {
+		String msg="";
+		if (NameText.getText().equals("")){
+			msg = msg + "Name is blank";
+		}
+
+		if (!(EmailText.getText().equals(""))&&!(EmailText.getText().contains("@"))&&!(EmailText.getText().contains("."))){
+			msg = msg + "\n"+"Enter Valid email id";
+		}
+
+		if(Phn1Text.getText().equals("")&&Phn2Text.getText().equals("")){
+			msg = msg + "\n"+"Phone Number is blank";
+		}else{
+			if(!Phn1Text.getText().equals("")){
+				try {
+					long no = Long.parseLong(Phn1Text.getText());
+
+					if (Phn1Text.getText().length()<8||Phn1Text.getText().length()>12){
+						msg = msg + "\n Enter Valid Phone No 1";
+					}
+				}catch (NumberFormatException numberFormatException){
+					msg = msg + "\n Phone no 1 Contain Characters";
+				}
+
+
+			}
+
+			if(!Phn2Text.getText().equals("")){
+				try {
+					long no = Long.parseLong(Phn2Text.getText());
+					if (Phn2Text.getText().length()<8||Phn2Text.getText().length()>12){
+						msg = msg + "\n Enter Valid Phone No 2";
+					}
+				}catch (NumberFormatException numberFormatException){
+					msg = msg + "\n Phone no 2 Contain Characters";
+				}
+
+
+			}
+
+
+
+		}
+
+
+
+
+		if (!(WebsiteText.getText().equals(""))&&!(WebsiteText.getText().contains("."))){
+			msg = msg + "\n"+"Enter Valid website address";
+		}
+
+
+		if (!msg.equals("")){
+
+			System.out.println(msg);
+			Text title = new Text("Alert");
+			title.setStyle("-fx-font-size:20");
+			Text text = new Text(msg);
+			text.setStyle("-fx-font-size:14");
+			JFXDialogLayout dialogContent = new JFXDialogLayout();
+			dialogContent.setHeading(title);
+			dialogContent.setBody(text);
+			JFXButton close = new JFXButton("Close");
+			close.setButtonType(JFXButton.ButtonType.RAISED);
+			close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+			dialogContent.setActions(close);
+			JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+
+			close.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent __) {
+					dialog.close();
+
+
+
+				}
+
+			});
+			dialog.show();
+			return 0;
+
+		}else {
+			return 1;
+		}
+	}
+
+	public void BackClicked () {
 		if(RequestsController.isReview){
 			page= "res/layout/Requests.fxml";
 			RequestsController.isReview = false;

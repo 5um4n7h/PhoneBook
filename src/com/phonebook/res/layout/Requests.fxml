@@ -5,7 +5,11 @@
 <?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="1006.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.phonebook.RequestsController">
-      <JFXListView fx:id="ListView" layoutX="210.0" layoutY="66.0" prefHeight="442.0" prefWidth="584.0" style="-fx-border-radius: 4; -fx-background-radius: 4;" />
+   <StackPane fx:id="stackPane" layoutX="206.0" layoutY="66.0" prefHeight="442.0" prefWidth="591.0">
+      <children>
+            <JFXListView fx:id="ListView" prefHeight="442.0" prefWidth="584.0" style="-fx-border-radius: 4; -fx-background-radius: 4;" />
+      </children>
+   </StackPane>
 
     <JFXButton fx:id="ReviewButton" buttonType="RAISED" layoutX="210.0" layoutY="525.0" prefHeight="38.0" prefWidth="191.0" style="-fx-background-color: #69FF81;" text="Review">
         <font>

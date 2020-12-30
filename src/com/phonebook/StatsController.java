@@ -21,7 +21,16 @@ public class StatsController {
 	public Label ttldel;
 	@FXML
 	public Label ttlreq;
-	public int TotalContacts;
+	@FXML
+	public Label ttlreqacc;
+	@FXML
+	public Label ttlreqrej;
+	@FXML
+	public Label updates;
+	@FXML
+	public Label users;
+
+
 
 	@FXML
 	private Button BackButton;
@@ -65,6 +74,59 @@ public class StatsController {
 
 			sqlException.printStackTrace();
 		}
+
+
+		try {
+			sql = "select totalreqacc from statistics";
+			ResultSet resultSet = Main.statement.executeQuery(sql);
+			while (resultSet.next()){
+				ttlreqacc.setText(String.valueOf(resultSet.getInt("totalreqacc")));
+			}
+			//ttlcon.setText(String.valueOf(TotalContacts));
+		} catch (SQLException sqlException) {
+
+			sqlException.printStackTrace();
+		}
+
+
+		try {
+			sql = "select totalreqrej from statistics";
+			ResultSet resultSet = Main.statement.executeQuery(sql);
+			while (resultSet.next()){
+				ttlreqrej.setText(String.valueOf(resultSet.getInt("totalreqrej")));
+			}
+			//ttlcon.setText(String.valueOf(TotalContacts));
+		} catch (SQLException sqlException) {
+
+			sqlException.printStackTrace();
+		}
+
+
+		try {
+			sql = "select updates from statistics";
+			ResultSet resultSet = Main.statement.executeQuery(sql);
+			while (resultSet.next()){
+				updates.setText(String.valueOf(resultSet.getInt("updates")));
+			}
+			//ttlcon.setText(String.valueOf(TotalContacts));
+		} catch (SQLException sqlException) {
+
+			sqlException.printStackTrace();
+		}
+
+
+		try {
+			sql = "select users from statistics";
+			ResultSet resultSet = Main.statement.executeQuery(sql);
+			while (resultSet.next()){
+				users.setText(String.valueOf(resultSet.getInt("users")));
+			}
+			//ttlcon.setText(String.valueOf(TotalContacts));
+		} catch (SQLException sqlException) {
+
+			sqlException.printStackTrace();
+		}
+
 
 
 

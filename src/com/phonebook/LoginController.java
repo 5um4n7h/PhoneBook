@@ -114,7 +114,102 @@ public class LoginController{
 	}
 
 	public void OnLoginButtonClick() {
+
+		if(username.getText().isBlank()||password.getText().isBlank()){
+
+			Text title =new Text( "Alert");
+			title.setStyle("-fx-font-size:20");
+			Text text = new Text("Enter User Name and Password !!");
+			text.setStyle("-fx-font-size:14");
+			JFXDialogLayout dialogContent = new JFXDialogLayout();
+			dialogContent.setHeading(title);
+			dialogContent.setBody(text);
+			JFXButton close = new JFXButton("Close");
+			close.setButtonType(JFXButton.ButtonType.RAISED);
+			close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+			dialogContent.setActions(close);
+			JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+			close.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent __) {
+					dialog.close();
+				}
+			});
+			dialog.show();
+			return;
+
+
+		}
+
+		if(username.getText().length()<6||password.getText().length()<6){
+			Text title =new Text( "Alert");
+			title.setStyle("-fx-font-size:20");
+			Text text = new Text("User name and password must be 6 characters !!");
+			text.setStyle("-fx-font-size:14");
+			JFXDialogLayout dialogContent = new JFXDialogLayout();
+			dialogContent.setHeading(title);
+			dialogContent.setBody(text);
+			JFXButton close = new JFXButton("Close");
+			close.setButtonType(JFXButton.ButtonType.RAISED);
+			close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+			dialogContent.setActions(close);
+			JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+			close.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent __) {
+					dialog.close();
+				}
+			});
+			dialog.show();
+			return;
+
+
+		}
+
+
+
+
+
+
+
+
+
 		if(isNew){
+
+			try {
+				Sql = "SELECT * FROM contacts.authentication where username='" + username.getText() + "'";
+				ResultSet resultSet = Main.statement.executeQuery(Sql);
+			while (resultSet.next()) {
+				System.out.println(resultSet.getString("username"));
+				if(!(resultSet.getString("username").isEmpty())){
+					Text title =new Text( "Alert");
+					title.setStyle("-fx-font-size:20");
+					Text text = new Text("username already taken, try different username !");
+					text.setStyle("-fx-font-size:14");
+					JFXDialogLayout dialogContent = new JFXDialogLayout();
+					dialogContent.setHeading(title);
+					dialogContent.setBody(text);
+					JFXButton close = new JFXButton("Close");
+					close.setButtonType(JFXButton.ButtonType.RAISED);
+					close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+					dialogContent.setActions(close);
+					JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+					close.setOnAction(new EventHandler<ActionEvent>() {
+						@Override
+						public void handle(ActionEvent __) {
+							dialog.close();
+
+						}
+					});
+					dialog.show();
+					return;
+				}
+			}
+			}catch (SQLException sqlException){
+				sqlException.printStackTrace();
+				return;
+			}
+
 
 			Sql ="insert into authentication set type='user',username='"+username.getText()+"',password='"+password.getText()+"'";
 			try {
@@ -182,31 +277,11 @@ public class LoginController{
 			}
 			return;
 		}
-		if(username.getText().isBlank()||password.getText().isBlank()){
-
-			Text title =new Text( "Alert");
-			title.setStyle("-fx-font-size:20");
-			Text text = new Text("Enter User Name and Password !!");
-			text.setStyle("-fx-font-size:14");
-			JFXDialogLayout dialogContent = new JFXDialogLayout();
-			dialogContent.setHeading(title);
-			dialogContent.setBody(text);
-			JFXButton close = new JFXButton("Close");
-			close.setButtonType(JFXButton.ButtonType.RAISED);
-			close.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
-			dialogContent.setActions(close);
-			JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
-			close.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent __) {
-					dialog.close();
-				}
-			});
-			dialog.show();
-			return;
 
 
-		}
+
+
+
 
 
 

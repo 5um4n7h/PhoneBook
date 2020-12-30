@@ -108,8 +108,11 @@ public class ContactsViewController extends Application {
         if(!LoginController.isUser) {
             FeedBackButton.setDisable(true);
             CreateContactButton.setText("Create");
+        }else {
+            CreateContactButton.setText("Request to Create New");
+            FeedBackButton.setDisable(false);
         }
-        CreateContactButton.setText("Request to Create");
+
         System.out.println("Init called");
         ViewSql = "call getContacts("+HomeController.Cat+",'default')";
         items = FXCollections.observableArrayList();

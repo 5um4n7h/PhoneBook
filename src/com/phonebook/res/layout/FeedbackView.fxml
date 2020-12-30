@@ -14,13 +14,18 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-       <Label fx:id="msgLabel" alignment="TOP_LEFT" layoutX="404.0" layoutY="172.0" prefHeight="241.0" prefWidth="395.0" style="-fx-background-color: #BCFEF5; -fx-background-radius: 8;" text="Label">
-         <font>
-            <Font size="18.0" />
-         </font>
-         <padding>
-            <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-         </padding></Label>
+      <StackPane fx:id="stackPane" layoutX="403.0" layoutY="170.0" prefHeight="242.0" prefWidth="394.0">
+         <children>
+             <Label fx:id="msgLabel" alignment="TOP_LEFT" prefHeight="241.0" prefWidth="411.0" style="-fx-background-color: #BCFEF5; -fx-background-radius: 8;" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+               </padding>
+            </Label>
+         </children>
+      </StackPane>
        <JFXButton fx:id="DeleteButton" buttonType="RAISED" layoutX="447.0" layoutY="480.0" prefHeight="38.0" prefWidth="126.0" style="-fx-background-color: #69FF81;" text="Delete">
            <font>
                <Font name="System Bold" size="16.0" />

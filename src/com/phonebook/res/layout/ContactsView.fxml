@@ -36,7 +36,7 @@
                            <Font size="14.0" />
                         </font>
                      </Hyperlink>
-                     <Label fx:id="Email" layoutX="26.0" layoutY="302.0" text="Email">
+                     <Label layoutX="26.0" layoutY="302.0" text="Email">
                         <font>
                            <Font name="System Bold" size="18.0" />
                         </font>
@@ -164,7 +164,7 @@
 
         </HBox>
         <HBox alignment="CENTER" spacing="8.0">
-      <JFXButton fx:id="CreateContactButton" buttonType="RAISED" layoutX="183.0" layoutY="270.0" prefHeight="38.0" prefWidth="179.0" style="-fx-background-color: #69FF81;" text="Create New Contact">
+      <JFXButton fx:id="CreateContactButton" buttonType="RAISED" layoutX="183.0" layoutY="270.0" prefHeight="38.0" prefWidth="213.0" style="-fx-background-color: #69FF81;" text="Create New Contact">
             <font>
                 <Font name="System Bold" size="16.0" />
             </font>

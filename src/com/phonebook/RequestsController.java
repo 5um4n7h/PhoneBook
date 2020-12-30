@@ -1,8 +1,13 @@
 package com.phonebook;
 
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.sql.ResultSet;
@@ -25,6 +32,8 @@ public class RequestsController {
 	private Button DeleteButton;
 	@FXML
 	private Button BackButton;
+	@FXML
+	private StackPane stackPane;
 
 	private ObservableList<Object> items;
 	public String sql;
@@ -154,14 +163,125 @@ public class RequestsController {
 		});
 
 		DeleteButton.setOnMouseClicked(mouseEvent -> {
-			try{
-				sql = "delete from usercontacts where id="+id;
-				Main.statement.executeUpdate(sql);
-				ListView.getItems().clear();
-				initialize();
-			}catch (SQLException sqlException){
-					sqlException.printStackTrace();
-			}
+
+			Text title = new Text("Alert");
+			title.setStyle("-fx-font-size:20");
+			Text text = new Text("Are you really want to delete this Request ?");
+			text.setStyle("-fx-font-size:14");
+			JFXDialogLayout dialogContent = new JFXDialogLayout();
+			dialogContent.setHeading(title);
+			dialogContent.setBody(text);
+			JFXButton cancel = new JFXButton("Cancel");
+			cancel.setButtonType(JFXButton.ButtonType.RAISED);
+			cancel.setStyle("-fx-background-color:#69FF81;-fx-font-size:15;-fx-font-weight:bold;");
+			JFXButton yes = new JFXButton("Yes");
+			yes.setButtonType(JFXButton.ButtonType.RAISED);
+			yes.setStyle("-fx-background-color:#FF6E6E;-fx-font-size:15;-fx-font-weight:bold;");
+			dialogContent.setActions(yes,cancel);
+
+			JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+
+			cancel.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent __) {
+					dialog.close();
+				}
+			});
+
+
+
+			yes.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent actionEvent) {
+					dialog.close();
+
+					try{
+
+						sql = "delete from usercontacts where id="+id;
+						Main.statement.executeUpdate(sql);
+						ListView.getItems().clear();
+						initialize();
+
+						Text title = new Text("Alert");
+						title.setStyle("-fx-font-size:20");
+						Text text = new Text("Request Deletion Successfull");
+						text.setStyle("-fx-font-size:14");
+						JFXDialogLayout dialogContent = new JFXDialogLayout();
+						dialogContent.setHeading(title);
+						dialogContent.setBody(text);
+						JFXButton Close = new JFXButton("Close");
+						Close.setButtonType(JFXButton.ButtonType.RAISED);
+						Close.setStyle("-fx-background-color:#FFF46C;-fx-font-size:15;-fx-font-weight:bold;");
+						dialogContent.setActions(Close);
+
+						JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+						Close.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent __) {
+								dialog.close();
+								int no = 0;
+								try{
+									String sql = "select totalreqrej from statistics";
+									ResultSet resultSet = Main.statement.executeQuery(sql);
+									while (resultSet.next()){
+										no = resultSet.getInt("totalreqrej");
+									}
+									no = no +1;
+									sql = "update statistics set totalreqrej="+no;
+									Main.statement.executeUpdate(sql);
+								}catch (SQLException sqlException){
+									sqlException.printStackTrace();
+
+								}
+
+							}
+						});
+						dialog.show();
+
+
+
+
+
+
+					}catch (Exception e){
+						e.printStackTrace();
+
+						Text title = new Text("Alert");
+						title.setStyle("-fx-font-size:20");
+						Text text = new Text("Error, Request Deletion unsuccessful!");
+						text.setStyle("-fx-font-size:14");
+						JFXDialogLayout dialogContent = new JFXDialogLayout();
+						dialogContent.setHeading(title);
+						dialogContent.setBody(text);
+						JFXButton Close = new JFXButton("Close");
+						Close.setButtonType(JFXButton.ButtonType.RAISED);
+						Close.setStyle("-fx-background-color:#FFF46C;-fx-font-size:15;-fx-font-weight:bold;");
+						dialogContent.setActions(Close);
+
+						JFXDialog dialog = new JFXDialog(stackPane, dialogContent, JFXDialog.DialogTransition.CENTER);
+						Close.setOnAction(new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent __) {
+								dialog.close();
+
+
+							}
+						});
+						dialog.show();
+
+
+
+
+
+					}
+
+				}
+			});
+			dialog.show();
+
+
+
+
 
 
 		});
