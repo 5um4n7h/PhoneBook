@@ -59,6 +59,8 @@ public class RequestsController {
 		items = FXCollections.observableArrayList();
 
 		try {
+
+
 			sql = "call getContacts(0,'user')";
 			ResultSet rs = Main.statement.executeQuery(sql);
 
@@ -244,7 +246,10 @@ public class RequestsController {
 
 
 					}catch (Exception e){
+
+
 						e.printStackTrace();
+
 
 						Text title = new Text("Alert");
 						title.setStyle("-fx-font-size:20");

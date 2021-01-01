@@ -57,7 +57,7 @@ public class FeedbackViewController {
 
 				// Object object = new Object();
 				try {
-					label = new Label(msg.substring(0, 2));
+					label = new Label(msg.substring(0, 10));
 				}catch (Exception e){
 
 				}

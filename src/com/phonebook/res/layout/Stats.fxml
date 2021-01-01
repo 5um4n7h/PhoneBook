@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="621.0" prefWidth="1006.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.phonebook.StatsController">
    <children>
@@ -23,15 +23,11 @@
          <font>
             <Font name="System Bold" size="25.0" />
          </font></Label>
-      <Label layoutX="377.0" layoutY="339.0" text="Deleted Contacts">
+      <Label layoutX="387.0" layoutY="340.0" text="Deleted Contacts">
          <font>
             <Font name="System Bold" size="25.0" />
          </font></Label>
-      <Label layoutX="325.0" layoutY="384.0" text="Total Contact Updates">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font></Label>
-      <Label layoutX="387.0" layoutY="429.0" text="Total no of users">
+      <Label layoutX="389.0" layoutY="384.0" text="Total no of users">
          <font>
             <Font name="System Bold" size="25.0" />
          </font></Label>
@@ -60,17 +56,12 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="updates" layoutX="606.0" layoutY="385.0" text="Label">
+      <Label fx:id="users" layoutX="606.0" layoutY="384.0" text="Label">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Label>
-      <Label fx:id="users" layoutX="606.0" layoutY="430.0" text="Label">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Label>
-      <JFXButton fx:id="BackButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="439.0" layoutY="506.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #69FF81;" text="Back to Home">
+      <JFXButton fx:id="BackButton" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="448.0" layoutY="461.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #69FF81;" text="Back to Home">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

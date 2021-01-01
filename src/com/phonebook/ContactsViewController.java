@@ -224,7 +224,7 @@ public class ContactsViewController extends Application {
                 newStage.setTitle("Phonebook");
                 newStage.setScene(new Scene(root));
                 newStage.initStyle(StageStyle.UNDECORATED);
-              //  newStage.initModality(Modality.WINDOW_MODAL);
+                newStage.initModality(Modality.WINDOW_MODAL);
                 newStage.initOwner(currentStage);
                 newStage.focusedProperty().addListener((obs, wasFocused, isNowFocused) -> {
                     if (! isNowFocused) {

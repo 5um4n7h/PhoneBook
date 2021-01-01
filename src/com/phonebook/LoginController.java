@@ -45,7 +45,11 @@ public class LoginController{
 
 
 	public void initialize(){
-
+		isUser = true;
+		isNew = false;
+		UserType = "user";
+		System.out.println(isUser);
+		System.out.println(UserType);
 		UserCreateButton.setOnMouseClicked(mouseEvent -> {
 			if(Clickedflag)
 			{
@@ -293,7 +297,7 @@ public class LoginController{
 			UserType = "admin";
 		}
 		try {
-
+         System.out.println(UserType);
 			String sql = "SELECT password FROM authentication where username='" + username.getText() + "' AND type='" + UserType + "'";
 			ResultSet rs = Main.statement.executeQuery(sql);
 			while (rs.next()) {

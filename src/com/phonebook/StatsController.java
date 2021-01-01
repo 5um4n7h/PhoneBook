@@ -26,8 +26,6 @@ public class StatsController {
 	@FXML
 	public Label ttlreqrej;
 	@FXML
-	public Label updates;
-	@FXML
 	public Label users;
 
 
@@ -101,18 +99,6 @@ public class StatsController {
 			sqlException.printStackTrace();
 		}
 
-
-		try {
-			sql = "select updates from statistics";
-			ResultSet resultSet = Main.statement.executeQuery(sql);
-			while (resultSet.next()){
-				updates.setText(String.valueOf(resultSet.getInt("updates")));
-			}
-			//ttlcon.setText(String.valueOf(TotalContacts));
-		} catch (SQLException sqlException) {
-
-			sqlException.printStackTrace();
-		}
 
 
 		try {
