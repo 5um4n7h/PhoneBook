@@ -57,9 +57,14 @@ public class FeedbackViewController {
 
 				// Object object = new Object();
 				try {
-					label = new Label(msg.substring(0, 10));
+					label = new Label(msg.substring(0, 15));
 				}catch (Exception e){
 
+					try{
+						label = new Label(msg.substring(0, 4));
+					}catch (Exception exception){
+						label = new Label(msg.substring(0,1));
+					}
 				}
 				// label.setFont(Font.font("Segoe UI Semibold",FontWeight.BOLD, 18));
 				items.add(label);
